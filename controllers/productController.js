@@ -3,7 +3,7 @@ const Product = require('../models/product.js');
 const ProductController = {
     
 
-    /* get single product */
+    // get single product 
     async get_product(req, res) {
         try {
             const product = await Product.findById(req.params.id);
@@ -55,14 +55,13 @@ const ProductController = {
     async get_productsByFiltering(req, res) {
         try {
             console.log("in get products by");
-            const { sortBy, colors, category, price, page, pageSize, sortDirection } = req.query;
+            const { sortBy, colors, category, price, page, pageSize, sortDirection, searchByTitle } = req.query;
 
             let query = {};
 
             console.log("sortBy ", sortBy);
             
             if (colors) {
-                // Convert the colors parameter to an array if it's a comma-separated string
                 const colorArray = Array.isArray(colors) ? colors : colors.split(',');
                 query.color = { $in: colorArray };
               }
@@ -77,6 +76,11 @@ const ProductController = {
               const [min, max] = price.split('-');
               query.price = { $gte: parseFloat(min), $lte: parseFloat(max) };
             }
+
+            //search
+            if (searchByTitle) {
+                query.title = { $regex: new RegExp(searchByTitle, 'i') };
+              }
 
             //sortDirection should be asc or desc
             const sortOptions = {};
@@ -107,7 +111,7 @@ const ProductController = {
         }
     },
 
-    /* create new product */
+    // create new product
     async create_product(req, res) {
         console.log(req.body);
         const { title, description,  price, color, owner, category, reviews } = req.body;
@@ -140,7 +144,7 @@ const ProductController = {
         }
     },
 
-    /* update product */
+    //update product 
     async update_product(req, res) {
         const existing = await Product.findById(req.params.id);
         if(!existing){
