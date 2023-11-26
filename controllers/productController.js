@@ -68,8 +68,10 @@ const ProductController = {
         
             
             if (category) {
-              query.category = category;
+                const categoryArray = Array.isArray(category) ? category : category.split(',');
+                query.category = { $in: categoryArray };
             }
+
             console.log(price);
             if (price) {
               // Assume price is in the format "min-max"
@@ -114,12 +116,13 @@ const ProductController = {
     // create new product
     async create_product(req, res) {
         console.log(req.body);
-        const { title, description,  price, color, owner, category, reviews } = req.body;
+        const { title, description, image,  price, color, owner, category, reviews } = req.body;
         const averageRating = calculateAverageRating(reviews);
 
         const newProduct = new Product({
             title,
             description,
+            image,
             price,
             color, 
             owner, 
@@ -203,29 +206,29 @@ const ProductController = {
     },
 
     /* delete product */
-    // async delete_user(req, res) {
-    //     const existing = await Product.findById(req.params.id);
-    //     if (!existing) {
-    //         res.status(200).json({
-    //             type: "error",
-    //             message: "Product doesn't exists"
-    //         })
-    //     } else {
-    //         try {
-    //             await Product.findOneAndDelete(req.params.id);
-    //             res.status(200).json({
-    //                 type: "success",
-    //                 message: "Product has been deleted successfully"
-    //             });
-    //         } catch (err) {
-    //             res.status(500).json({
-    //                 type: "error",
-    //                 message: "Something went wrong please try again",
-    //                 err
-    //             })
-    //         }
-    //     }
-    // }
+    async delete_user(req, res) {
+        const existing = await Product.findById(req.params.id);
+        if (!existing) {
+            res.status(200).json({
+                type: "error",
+                message: "Product doesn't exists"
+            })
+        } else {
+            try {
+                await Product.findOneAndDelete(req.params.id);
+                res.status(200).json({
+                    type: "success",
+                    message: "Product has been deleted successfully"
+                });
+            } catch (err) {
+                res.status(500).json({
+                    type: "error",
+                    message: "Something went wrong please try again",
+                    err
+                })
+            }
+        }
+    }
 };
 
 function calculateAverageRating(reviews) {
