@@ -42,7 +42,7 @@ const UserController = {
             phoneNumber: req.body.phoneNumber,
             dateOfBirth: req.body.dateOfBirth,
             gender: req.body.gender,
-            previousPassword: Array.push(bcrypt.hashSync(req.body.password, 10))
+            previousPassword: new Array(bcrypt.hashSync(req.body.password, 10))
         });
 
         try {
@@ -152,6 +152,9 @@ const UserController = {
         api_config.api.jwt_secret,
         { expiresIn: "1d"}
         );
+
+         
+        
 
         const { password, ...data } = user._doc;
 

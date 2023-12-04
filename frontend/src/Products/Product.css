@@ -60,3 +60,8 @@ img{
   color: red;
   cursor: pointer;
 }
+
+.bag :hover{
+  color: red;
+  cursor: pointer;
+}

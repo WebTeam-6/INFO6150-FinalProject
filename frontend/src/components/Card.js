@@ -1,7 +1,33 @@
 import { Rating } from "@mui/material";
 import { BsFillBagFill } from "react-icons/bs";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-function Card({ image, title, value, price, count }) {
+import { jwtDecode } from 'jwt-decode'
+import axios from 'axios';
+
+function Card({ productId, image, title, value, price, count }) {
+
+  const addToCartUrl = `http://localhost:8000/cart/addToCart`;
+  
+  localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmQxNmU3MzM4MGRlYjM3Mjg4YWRkYiIsImlhdCI6MTcwMTY0ODM4MiwiZXhwIjoxNzAxNzM0NzgyfQ.bZa0mNKoY8KrvqHsulc-ppsNGStr8k4g1PpAMmZwo1Q');
+  const token = localStorage.getItem('token');
+  console.log("token", token);
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken.id;
+  console.log("userId ", userId);
+
+    const addToCartHandler = async() =>{
+
+      const req = {
+        "userId": userId,
+        "productId": productId,
+        "quantity": 1
+      }
+
+      const response = await axios.post(addToCartUrl, req);
+
+      console.log("addToCart response ", response.data);
+    }
+
   return (
     <>
         <div className="card">
@@ -26,7 +52,7 @@ function Card({ image, title, value, price, count }) {
               <div className="fav">
               <FavoriteIcon className="fav-icon"/>
               </div>
-              <div className="bag">
+              <div className="bag" onClick={addToCartHandler}>
               <BsFillBagFill className="bag-icon" />
               </div>
             </div>
