@@ -1,173 +1,192 @@
-const User = require('../models/user');
+const asyncHandler = require('express-async-handler');
+const generateToken = require('../utils/generateToken.js');
+const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken");
-const api_config = require("../config/api.js");
 
-const UserController = {
+// @desc    Auth user & get token
+// @route   POST /api/users/login
+// @access  Public
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-    /* get all users */
-    async get_users(req, res) {
-        try {
-            const users = await User.find();
-            if(!users){
-                res.status(400).json({
-                    type: "error",
-                    message:"User doesn't exists"
-                })
-            } else{
-                res.status(200).json({
-                    type: "success",
-                    users
-                })
-            }
-        } catch (err) {
-            res.status(500).json({
-                type: "error",
-                message: "Something went wrong please try again",
-                err
-            })
-        }
-       
-    },
+  console.log(email +" "+ password);
+  const user = await User.findOne({ email });
+  console.log(user);
 
-    /* create new user */
-    async create_user(req, res, next) {
+  if (user && (await bcrypt.compare(password, user.password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isAdminSeller: user.isAdminSeller,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
+});
 
-        console.log(req.body);
-        const newUser = new User({
+// @desc    Register a new user
+// @route   POST /api/users
+// @access  Public
+const registerUser = asyncHandler(async (req, res) => {
+  var { email, fullName, password ,  phoneNumber, dateOfBirth, gender} = req.body;
 
-            email: req.body.email,
-            fullName: req.body.fullName,
-            password: bcrypt.hashSync(req.body.password, 10),
-            phoneNumber: req.body.phoneNumber,
-            dateOfBirth: req.body.dateOfBirth,
-            gender: req.body.gender,
-            previousPassword: new Array(bcrypt.hashSync(req.body.password, 10))
-        });
+  password = bcrypt.hashSync(req.body.password, 10);
+  const userExists = await User.findOne({ email });
 
-        try {
-            const user = await newUser.save();
-            res.status(201).json({
-                type : 'success',
-                message: "User has been created successfully",
-                user
-            })
-        } catch (err) {
-            res.status(500).json({
-                type: "error",
-                message: "Something went wrong please try again",
-                err
-            })
-        }
+  if (userExists) {
+    res.status(400);
+    throw new Error('User already exists');
+  }
 
-    },
+  const user = await User.create({
+    email,
+    fullName,
+    password,
+    phoneNumber,
+    dateOfBirth,
+    gender
 
-    /* update password */
-    async update_password(req, res) /*   /user/edit  */{
+  });
 
-        const existing = await User.findById(req.params.id);
-        if(!existing){
-            res.status(404).json({
-                type: "error",
-                message: "User doesn't exist"
-            })
-        }else{
-            if(req.body.password) {
-                req.body.password = bcrypt.hashSync(req.body.password, 10)
-            }
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      email: user.email,
+      fullName: user.fullName,
+      isAdmin: user.isAdmin,
+      isAdminSeller: user.isAdminSeller,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
+});
 
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
+const getUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
 
-            
-            try {
-                const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-                    // {previousPassword: Array.push(bcrypt.hashSync(req.body.password, 10))},
-                    $set: req.body
-                    
-                    
-                }, 
-                { new: true }
-                );
-                res.status(200).json({
-                    type: "success",
-                    message: "User updated successfully",
-                    updatedUser
-                })
-            } catch (err) {
-                res.status(500).json({
-                    type: "error",
-                    message: "Something went wrong please try again",
-                    err
-                })
-            }
-        }
-    },
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isAdminSeller: user.isAdminSeller,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
 
-    /* update user */
-    async update_user(req, res) /*   /user/edit  */{
-        const {  email, fullName, phoneNumber, dateOfBirth, gender } = req.body;
-        const existing = await User.findById(req.params.id);
-        if(!existing){
-            res.status(404).json({
-                type: "error",
-                message: "User doesn't exist"
-            })
-        }else{
-            try {
-                const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-                    $set: req.body
-                }, 
-                { new: true }
-                );
-                res.status(200).json({
-                    type: "success",
-                    message: "User updated successfully",
-                    updatedUser
-                })
-            } catch (err) {
-                res.status(500).json({
-                    type: "error",
-                    message: "Something went wrong please try again",
-                    err
-                })
-            }
-        }
-    },
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
 
-   /* login existing user */
-   async login_user(req, res) {
-        
-    const user = await User.findOne({ email: req.body.email });
-    // console.log(email);
-
-    if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
-        res.status(500).json({
-            type: "error",
-            message: "User not exists or invalid credentials",
-        })
-    } else {
-
-        const accessToken = jwt.sign({
-            id: user._id,
-            isAdmin: user.isAdmin}, 
-        api_config.api.jwt_secret,
-        { expiresIn: "1d"}
-        );
-
-         
-        
-
-        const { password, ...data } = user._doc;
-
-        res.status(200).json({
-            type: "success",
-            message: "Successfully logged",
-            ...data,
-            accessToken
-        })
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
     }
-} 
 
-    
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      isAdminSeller: updatedUser.isAdminSeller,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+// @desc    Delete user
+// @route   DELETE /api/users/:id
+// @access  Private/Admin
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    await user.remove();
+    res.json({ message: 'User removed' });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    Get user by ID
+// @route   GET /api/users/:id
+// @access  Private/Admin
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    Update user
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+    user.isAdminSeller = req.body.isAdminSeller;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      isAdminSeller: updatedUser.isAdminSeller,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+module.exports = {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
 };
-
-module.exports = UserController;
