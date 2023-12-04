@@ -4,6 +4,7 @@ import { AppBar, Box, CssBaseline, useMediaQuery, useTheme } from '@mui/material
 import NavBar from '../components/NavBar';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function CartPage(){
@@ -16,211 +17,179 @@ function CartPage(){
     console.log("token", token);
     const decodedToken = jwtDecode(token);
     const userId = decodedToken.id;
-    const [cartData, setCartData] = useState();
+    const [cartData, setCartData] = useState([]);
+    const [cartAltered, setCartAltered] = useState(false);
     var getCartUrl = `http://localhost:8000/cart/getCart/${userId}`;
+   // var deleteProdFromCartUrl = `http://localhost:8000/cart/deleteProduct?userId=${userId}`;
+    const [modifyProdFromCartUrl, setModifyProdFromCartUrl] = useState(
+      `http://localhost:8000/cart/modifyProduct?userId=${userId}`
+    );
 
 
     useEffect(()=>{
         
         const getCartByUser = async() =>{
         try {
-          console.log("getCartUrl ", getCartUrl);
+          //console.log("getCartUrl ", getCartUrl);
           const cartDataResponse = await axios.post(getCartUrl);
           console.log("getCart response ", cartDataResponse.data);
-          setCartData(cartDataResponse.data);
+          setCartData(cartDataResponse.data.items);
+          //console.log("cartData ", cartData);
          } catch (error) {
             console.log(error.message);
           }
         }
 
         getCartByUser();
-      },[])
+      },[cartAltered])
+      
+      const handlemodifyProdFromCart = async(prodCartId, action) => {
+        try {
+            const url = `${modifyProdFromCartUrl}&prodCartId=${prodCartId}&action=${action}`;
+            console.log("deleteProdFromCartUrl ", url);
+            const cartDataResponse = await axios.post(url);
+            console.log("getCart response ", cartDataResponse.data);
+            if (cartDataResponse.status === 200) {
+              setCartData(cartDataResponse.data.items);
+              setCartAltered(!cartAltered);
+            } else {
+              console.error('Failed to remove product from cart');
+            }
+            console.log("cartData ", cartData);
+            
+           } catch (error) {
+              console.log(error.message);
+            }
+      };
+
+      // const handleAlterProductQuantity = async(prodCartId, addQuantity) => {
+      //   try {
+      //       const url = `${deleteProdFromCartUrl}&prodCartId=${prodCartId}&add=${addQuantity}`;
+      //       console.log("deleteProdFromCartUrl ", url);
+      //       const cartDataResponse = await axios.delete(url);
+      //       console.log("getCart response ", cartDataResponse.data);
+      //       if (cartDataResponse.status === 200) {
+      //         setCartData(cartDataResponse.data.items);
+      //         setCartAltered(!cartAltered);
+      //       } else {
+      //         console.error('Failed to remove product from cart');
+      //       }
+      //       console.log("cartData ", cartData);
+      //      } catch (error) {
+      //         console.log(error.message);
+      //       }
+      // };
+
+
 
     return(
         <>
-        <Box sx={{ display: "flex"}}>
-        <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`  ,backgroundColor: 'white',}}
-      >
        <NavBar/>
-       <section class="h-100 h-custom" id = "mainSection" >
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12">
-            <div class="card card-registration card-registration-2">
-            <div class="card-body p-0">
-                <div class="row g-0">
-                <div class="col-lg-8">
-                    <div class="p-5">
-                    <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                        <h6 class="mb-0 text-muted">3 items</h6>
-                    </div>
-                    <hr class="my-4"></hr>
-
-                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                            class="img-fluid rounded-3" alt="Cotton T-shirt"></img>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">Shirt</h6>
-                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                        </button>
-
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                            class="form-control form-control-sm" />
-
-                        <button class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ 44.00</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                        </div>
-                    </div>
-
-                    <hr class="my-4"></hr>
-
-                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                            class="img-fluid rounded-3" alt="Cotton T-shirt"></img>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">Shirt</h6>
-                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                        </button>
-
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                            class="form-control form-control-sm" />
-
-                        <button class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ 44.00</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                        </div>
-                    </div>
-
-                    <hr class="my-4"></hr>
-
-                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                            class="img-fluid rounded-3" alt="Cotton T-shirt"></img>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">Shirt</h6>
-                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                        </button>
-
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                            class="form-control form-control-sm" />
-
-                        <button class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ 44.00</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                        </div>
-                    </div>
-
-                    <hr class="my-4"></hr>
-
-                    <div class="pt-5">
-                        <h6 class="mb-0"><a href="#!" class="text-body"><i
-                            class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 bg-grey">
-                    <div class="p-5">
-                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                    <hr class="my-4"></hr>
-
-                    <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">items 3</h5>
-                        <h5>€ 132.00</h5>
-                    </div>
-
-                    <h5 class="text-uppercase mb-3">Shipping</h5>
-
-                    <div class="mb-4 pb-2">
-                        <select class="select">
-                        <option value="1">Standard-Delivery- €5.00</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">Four</option>
-                        </select>
-                    </div>
-
-                    <h5 class="text-uppercase mb-3">Give code</h5>
-
-                    <div class="mb-5">
-                        <div class="form-outline">
-                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Examplea2">Enter your code</label>
-                        </div>
-                    </div>
-
-                    <hr class="my-4"></hr>
-
-                    <div class="d-flex justify-content-between mb-5">
-                        <h5 class="text-uppercase">Total price</h5>
-                        <h5>€ 137.00</h5>
-                    </div>
-
-                    <button type="button" class="btn btn-dark btn-block btn-lg"
-                        data-mdb-ripple-color="dark">Register</button>
-
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
+    <div className="cart-container">
+      <h2>Shopping Cart</h2>
+      {cartData.length === 0 ? (
+        <div className="cart-empty">
+          <p>Your cart is currently empty</p>
+          <div className="start-shopping">
+            <Link to="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                className="bi bi-arrow-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                />
+              </svg>
+              <span>Start Shopping</span>
+            </Link>
+          </div>
         </div>
+      ) : (
+        <div>
+          <div className="titles">
+            <h3 className="product-title">Product</h3>
+            <h3 className="price">Price</h3>
+            <h3 className="quantity">Quantity</h3>
+            <h3 className="total">Total</h3>
+          </div>
+          <div className="cart-items">
+            {cartData &&
+              cartData.map((cartItem) => (
+                <div className="cart-item" key={cartItem._id}>
+                  <div className="cart-product">
+                    <img src={cartItem.productId.image} alt={cartItem.productId.title} />
+                    <div>
+                      <h3>{cartItem.productId.title}</h3>
+                      {/* <p>{cartItem.productId.description}</p> */}
+                      <button onClick={() => handlemodifyProdFromCart(cartItem._id, 'remove')}>Remove</button>
+                    </div>
+                  </div>
+                  <div className="cart-product-price">${cartItem.productId.price}</div>
+                  <div className="cart-product-quantity">
+                    <button onClick={() => handlemodifyProdFromCart(cartItem._id, 'decrease')}>
+                      -
+                    </button>
+                    <div className="count">{cartItem.quantity}</div>
+                    <button onClick={() => handlemodifyProdFromCart(cartItem._id, 'increase')}>+</button>
+                    {/* <button >+</button> */}
+                  </div>
+                  <div className="cart-product-total-price">
+                    ${cartItem.productId.price * cartItem.quantity}
+                  </div>
+                </div>
+              ))}
+          </div>
+          <div className="cart-summary">
+            {/* <button className="clear-btn" onClick={() => handleClearCart()}> */}
+            <button className="clear-btn">
+              Clear Cart
+            </button>
+            <div className="cart-checkout">
+              <div className="subtotal">
+                <span>Subtotal</span>
+                {/* <span className="amount">${cart.cartTotalAmount}</span> */}
+              </div>
+              <p>Taxes and shipping calculated at checkout</p>
+              {/* {auth._id ? ( */}
+                <button>Check out</button>
+              {/* ) : (
+                <button
+                  className="cart-login"
+                  onClick={() => navigate("/login")}
+                >
+                  Login to Check out
+                </button>
+              ) */}
+              {/* } */}
+
+              <div className="continue-shopping">
+                <Link to="/">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="bi bi-arrow-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                    />
+                  </svg>
+                  <span>Continue Shopping</span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
+      )}
     </div>
-    </section>    
-       
-       </AppBar>
- 
-</Box>
         </>
     );
 }
