@@ -150,11 +150,19 @@ function CartPage(){
               Clear Cart
             </button>
             <div className="cart-checkout">
+            <div className="taxes">
+            <span>Taxes</span>
+            <span>${cart.total}</span>
+            </div>
+            <div className="deliveryfees">
+            <span>Delivery Fees</span>
+            <span>${cart.deliveryFees}</span>
+            </div>
               <div className="subtotal">
                 <span>Subtotal</span>
-                {/* <span className="amount">${cart.cartTotalAmount}</span> */}
+                <span className="amount">${cart.total}</span>
               </div>
-              <p>Taxes and shipping calculated at checkout</p>
+              {/* <p>Taxes and shipping calculated at checkout</p> */}
               {/* {auth._id ? ( */}
                 <button>Check out</button>
               {/* ) : (
