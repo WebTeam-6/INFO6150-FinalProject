@@ -174,11 +174,12 @@ function ProductPage(){
         </Select>
       </FormControl>
     </div>
-        <Products result={filteredData.map(({ image, title, averageRating, price, reviews }) => {
+        <Products result={filteredData.map(({ _id, image, title, averageRating, price, reviews }) => {
         const count = reviews.length;
         return (
           <Card
             key={Math.random()}
+            productId={_id}
             image={image}
             title={title}
             value={averageRating}

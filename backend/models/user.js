@@ -27,10 +27,15 @@ const UserSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        previousPassword: [{
-            type: String,
-            required: false
-        }]
+        // previousPassword: [{
+        //     type: String,
+        //     required: false
+        // }],
+        isAdmin: {
+            type: Boolean,
+            required: true,
+            default: false,
+          },
     },
     { timestamps: true}
 );

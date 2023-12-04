@@ -11,7 +11,7 @@ function OrderTracking(){
       >
        <NavBar/>
       </AppBar>
-        <Track/>
+        <Track />
     </>
     )
 }
