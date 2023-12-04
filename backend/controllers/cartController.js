@@ -1,11 +1,16 @@
 const Cart = require('../models/cart');
 
-const addToCart = async (userId, productId, quantity = 1) => {
+const CartController = {
+
+  async addToCart(req, res){
   try {
+    const { userId, productId, quantity } = req.body;
     let cart = await Cart.findOne({ userId });
 
     if (!cart) {
-      cart = new Cart({ userId, items: [] });
+      newCart = new Cart({ userId, items: [{ productId, quantity }] });
+      await newCart.save();
+      return res.json(newCart);
     }
 
     const existingItem = cart.items.find(item => item.productId.equals(productId));
@@ -17,9 +22,28 @@ const addToCart = async (userId, productId, quantity = 1) => {
     }
 
     await cart.save();
-    return cart;
+    return res.json(cart);
   } catch (error) {
     console.error(error);
     throw new Error('Error adding item to cart');
   }
+},
+
+  async getCart (req, res) {
+    try {
+        const userId = req.params.userId;
+        const cart = await Cart.findOne({ userId }).populate('items.productId');
+    
+        if (!cart) {
+          return res.status(404).json({ error: 'Cart not found' });
+        }
+    
+        res.json(cart);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+  }
 };
+
+  module.exports = CartController;

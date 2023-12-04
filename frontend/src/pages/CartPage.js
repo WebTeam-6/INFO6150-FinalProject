@@ -2,12 +2,39 @@ import React, { useState, useEffect } from 'react';
 import '../styles/cartPage.css'
 import { AppBar, Box, CssBaseline, useMediaQuery, useTheme } from '@mui/material';
 import NavBar from '../components/NavBar';
+import { jwtDecode } from 'jwt-decode'
+import axios from 'axios';
 
 
 function CartPage(){
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const drawerWidth = isMobile ? 200 : 280; 
+
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmQxNmU3MzM4MGRlYjM3Mjg4YWRkYiIsImlhdCI6MTcwMTY0ODM4MiwiZXhwIjoxNzAxNzM0NzgyfQ.bZa0mNKoY8KrvqHsulc-ppsNGStr8k4g1PpAMmZwo1Q');
+    const token = localStorage.getItem('token');
+    console.log("token", token);
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.id;
+    const [cartData, setCartData] = useState();
+    var getCartUrl = `http://localhost:8000/cart/getCart/${userId}`;
+
+
+    useEffect(()=>{
+        
+        const getCartByUser = async() =>{
+        try {
+          console.log("getCartUrl ", getCartUrl);
+          const cartDataResponse = await axios.post(getCartUrl);
+          console.log("getCart response ", cartDataResponse.data);
+          setCartData(cartDataResponse.data);
+         } catch (error) {
+            console.log(error.message);
+          }
+        }
+
+        getCartByUser();
+      },[])
 
     return(
         <>
@@ -18,8 +45,7 @@ function CartPage(){
         sx={{ width: `calc(100% - ${drawerWidth}px)`  ,backgroundColor: 'white',}}
       >
        <NavBar/>
-       </AppBar>
-    <section class="h-100 h-custom" id = "mainSection" >
+       <section class="h-100 h-custom" id = "mainSection" >
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
@@ -190,7 +216,10 @@ function CartPage(){
         </div>
         </div>
     </div>
-    </section>
+    </section>    
+       
+       </AppBar>
+ 
 </Box>
         </>
     );
