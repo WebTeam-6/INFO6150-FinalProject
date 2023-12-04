@@ -43,7 +43,50 @@ const CartController = {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
       }
+  },
+
+  async modifyCartProduct(req, res){
+    try{
+      const { userId, prodCartId, action } = req.query;
+      const cart = await Cart.findOne({ userId });
+  
+      if (!cart) {
+        return res.status(404).json({ error: 'Cart not found' });
+      }
+  
+      const cartItem = cart.items.find(item => item._id.equals(prodCartId));
+  
+      if (!cartItem) {
+        return res.status(404).json({ error: 'Product not found in the cart' });
+      }
+  
+      switch (action) {
+        case 'increase':
+          cartItem.quantity += 1;
+          break;
+        case 'decrease':
+          cartItem.quantity = Math.max(cartItem.quantity - 1, 0);
+          if(cartItem.quantity <= 0){
+            cart.items = cart.items.filter(item => !item._id.equals(prodCartId));
+          }
+          break;
+        case 'remove':
+         
+          cart.items = cart.items.filter(item => !item._id.equals(prodCartId));
+          break;
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+  
+      await cart.save();
+  
+      res.status(200).json({ success: true, items: cart.items });
+    }catch(error){
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
+
 };
 
   module.exports = CartController;
