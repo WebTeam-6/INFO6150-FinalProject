@@ -1,14 +1,27 @@
-var express =require('express') ;
+const express = require('express');
 const router = express.Router();
-const  UserController  = require('../controllers/userController');
+const {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
+} = require('../controllers/userController.js');
+const { protect, admin } = require('../middleware/authMiddleware.js');
 
-console.log("in router");
-
-// router.get('/', UserController.get_users);
-router.get('/getAll', UserController.get_users);
-router.post('/register', UserController.create_user);
-router.post('/login', UserController.login_user);
-router.put('/update/:id', UserController.update_user);
-router.put('/forgotPassword/:id', UserController.update_password);
+router.route('/').post(registerUser).get(protect, admin, getUsers);
+router.post('/login', authUser);
+router
+  .route('/profile')
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile);
+router
+  .route('/:id')
+  .delete(protect, admin, deleteUser)
+  .get(protect, admin, getUserById)
+  .put(protect, admin, updateUser);
 
 module.exports = router;
