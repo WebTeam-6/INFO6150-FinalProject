@@ -109,6 +109,9 @@ function ProductPage(){
             const calculatedTotalPages = response.data.totalPages;
             console.log(calculatedTotalPages)
         setTotalPages(calculatedTotalPages);
+        if(currentPage>response.data.totalPages){
+          setCurrentPage(1);
+        }
         } catch (error) {
           console.log(error.message);
         }

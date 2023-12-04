@@ -6,7 +6,6 @@ var mongoose = require("mongoose");
 var cors = require('cors');
 var  productRouter  = require('./routes/productRouter.js') ;
 var userRouter = require('./routes/userRoute')
-var cartRouter = require('./routes/cartRouter')
 
 var bodyParser = require("body-parser");
 
@@ -18,7 +17,6 @@ app.use(bodyParser.json());
 
 app.use('/user',userRouter);
 app.use('/product', productRouter);
-app.use('/cart', cartRouter);
 
 async function connect(){
     try{
