@@ -6,7 +6,12 @@ import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ManImage from '../assets/man.png';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
+=======
+import { useNavigate } from "react-router-dom";
+
+>>>>>>> 674fbda0b105ba87d855d7ecf7543aac6d3480dc
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -48,9 +53,16 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
 
-function NavBar() {
+function NavBar({cartSize}) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     const navigate = useNavigate();
+
+
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
 
       const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -59,6 +71,10 @@ function NavBar() {
       const handleCloseUserMenu = () => {
         setAnchorElUser(null);
       };
+
+      function goToCart(){
+        navigate("/cart");
+      }
       
       const handleOrders = () =>{
         navigate('/orders')
@@ -93,7 +109,7 @@ function NavBar() {
                 <FavoriteBorderIcon sx={{ fontSize: "30px" }} />
               </Badge>
             </IconButton>
-            <IconButton size="large">
+            <IconButton size="large" onClick={goToCart}>
               <Badge badgeContent={3} color="error">
                 <ShoppingCartCheckout sx={{ fontSize: "30px" }} />
               </Badge>
