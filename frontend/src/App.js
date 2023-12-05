@@ -31,7 +31,6 @@ function App() {
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
     <Route path="/dashboard" element={<Admin/>} />
-    <Route path='/orders' element={<Orders/>}/>
     </Routes>
   </BrowserRouter>
   );
