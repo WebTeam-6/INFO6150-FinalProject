@@ -4,11 +4,17 @@ const CartController = {
 
   async addToCart(req, res){
   try {
+    console.log("addToCart ", req);
     const { userId, productId, quantity } = req.body;
     let cart = await Cart.findOne({ userId });
 
     if (!cart) {
-      newCart = new Cart({ userId, items: [{ productId, quantity }] });
+      newCart = new Cart({ userId, 
+                            items: [{ productId, quantity }],
+                            totalPrice: 0,
+                            taxes: 0,
+                            deliveryFees: 0, 
+                          });
       await newCart.save();
       return res.json(newCart);
     }
@@ -20,6 +26,11 @@ const CartController = {
     } else {
       cart.items.push({ productId, quantity });
     }
+
+
+    cart.totalPrice = calculateTotalPrice(cart);
+    cart.taxes = calculateTaxes(cart.totalPrice);
+    cart.deliveryFees = calculateDeliveryFees(cart.totalPrice);
 
     await cart.save();
     return res.json(cart);
@@ -77,6 +88,10 @@ const CartController = {
         default:
           return res.status(400).json({ error: 'Invalid action' });
       }
+
+      cart.totalPrice = calculateTotalPrice(cart);
+      cart.taxes = calculateTaxes(cart.totalPrice);
+      cart.deliveryFees = calculateDeliveryFees(cart.totalPrice);
   
       await cart.save();
   
@@ -87,6 +102,19 @@ const CartController = {
     }
   }
 
+};
+
+const calculateTotalPrice = (cart) => {
+  return cart.items.reduce((total, item) => total + item.productId.price * item.quantity, 0);
+};
+
+const calculateTaxes = (totalPrice) => {
+  return 0.1 * totalPrice; 
+};
+
+
+const calculateDeliveryFees = (totalPrice) => {
+  return totalPrice > 35 ? 0 : 5; 
 };
 
   module.exports = CartController;

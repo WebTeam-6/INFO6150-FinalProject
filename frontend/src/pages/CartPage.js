@@ -33,7 +33,7 @@ function CartPage(){
           //console.log("getCartUrl ", getCartUrl);
           const cartDataResponse = await axios.post(getCartUrl);
           console.log("getCart response ", cartDataResponse.data);
-          setCartData(cartDataResponse.data.items);
+          setCartData(cartDataResponse.data);
           //console.log("cartData ", cartData);
          } catch (error) {
             console.log(error.message);
@@ -50,7 +50,7 @@ function CartPage(){
             const cartDataResponse = await axios.post(url);
             console.log("getCart response ", cartDataResponse.data);
             if (cartDataResponse.status === 200) {
-              setCartData(cartDataResponse.data.items);
+              setCartData(cartDataResponse.data);
               setCartAltered(!cartAltered);
             } else {
               console.error('Failed to remove product from cart');
@@ -87,7 +87,7 @@ function CartPage(){
        <NavBar/>
     <div className="cart-container">
       <h2>Shopping Cart</h2>
-      {cartData.length === 0 ? (
+      {cartData.items?.length === 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
           <div className="start-shopping">
@@ -119,7 +119,7 @@ function CartPage(){
           </div>
           <div className="cart-items">
             {cartData &&
-              cartData.map((cartItem) => (
+              cartData.items?.map((cartItem) => (
                 <div className="cart-item" key={cartItem._id}>
                   <div className="cart-product">
                     <img src={cartItem.productId.image} alt={cartItem.productId.title} />
@@ -150,11 +150,19 @@ function CartPage(){
               Clear Cart
             </button>
             <div className="cart-checkout">
+            <div className="taxes">
+            <span>Taxes</span>
+            <span>${cartData.total}</span>
+            </div>
+            <div className="deliveryfees">
+            <span>Delivery Fees</span>
+            <span>${cartData.deliveryFees}</span>
+            </div>
               <div className="subtotal">
                 <span>Subtotal</span>
-                {/* <span className="amount">${cart.cartTotalAmount}</span> */}
+                <span className="amount">${cartData.total}</span>
               </div>
-              <p>Taxes and shipping calculated at checkout</p>
+              {/* <p>Taxes and shipping calculated at checkout</p> */}
               {/* {auth._id ? ( */}
                 <button>Check out</button>
               {/* ) : (

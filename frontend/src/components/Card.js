@@ -3,6 +3,7 @@ import { BsFillBagFill } from "react-icons/bs";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Card({ productId, image, title, value, price, count }) {
 
@@ -30,7 +31,8 @@ function Card({ productId, image, title, value, price, count }) {
 
   return (
     <>
-        <div className="card">
+      <Link to={`product/${productId}`}>
+      <div className="card" >
           <div className="card-img">
             <img src={image}></img>
           </div>
@@ -58,6 +60,8 @@ function Card({ productId, image, title, value, price, count }) {
             </div>
           </div>
         </div>
+      </Link>
+  
     </>
   );
 }

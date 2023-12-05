@@ -5,8 +5,10 @@ const ProductController = {
 
     // get single product 
     async get_product(req, res) {
+
         try {
-            const product = await Product.findById(req.params.id);
+            console.log("in get_product", req.params.productId);
+            const product = await Product.findById(req.params.productId);
             if(!product) {
                 res.status(404).json({
                     type: "error",
@@ -55,7 +57,7 @@ const ProductController = {
     async get_productsByFiltering(req, res) {
         try {
             console.log("in get products by");
-            const { sortBy, colors, category, price, page, pageSize, sortDirection, searchByTitle } = req.query;
+            const { sortBy, colors, category, price, page, pageSize, sortDirection, searchByTitle, maxAverageRating } = req.query;
 
             let query = {};
 
@@ -77,6 +79,11 @@ const ProductController = {
               // Assume price is in the format "min-max"
               const [min, max] = price.split('-');
               query.price = { $gte: parseFloat(min), $lte: parseFloat(max) };
+            }
+
+            console.log("maxAverageRating", maxAverageRating);
+            if (maxAverageRating) {
+                query.averageRating = {$gte: parseFloat(0), $lte: parseFloat(maxAverageRating) };
             }
 
             //search
