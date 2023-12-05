@@ -4,11 +4,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Card({ productId, image, title, value, price, count }) {
 
   const addToCartUrl = `http://localhost:8000/cart/addToCart`;
-  
+  const navigate = useNavigate();
   localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmYyNzYxM2NmMzJhOGIwNzcyMTVkNiIsImlhdCI6MTcwMTc4NDQyOSwiZXhwIjoxNzA0Mzc2NDI5fQ.kzptTAPhYLTqjxsdibF8vDK9b5eQ9Wp19Dht9tO7ChY');
   const token = localStorage.getItem('token');
   console.log("token", token);
@@ -29,10 +30,13 @@ function Card({ productId, image, title, value, price, count }) {
       console.log("addToCart response ", response.data);
     }
 
+    function product(){
+      navigate(`product/${productId}`);
+    }
+
   return (
     <>
-      <Link to={`product/${productId}`}>
-      <div className="card" >
+      <div className="card-p" onClick={product}>
           <div className="card-img">
             <img src={image}></img>
           </div>
@@ -59,9 +63,7 @@ function Card({ productId, image, title, value, price, count }) {
               </div>
             </div>
           </div>
-        </div>
-      </Link>
-  
+        </div>  
     </>
   );
 }

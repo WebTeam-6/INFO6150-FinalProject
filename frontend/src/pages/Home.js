@@ -56,6 +56,7 @@ function Home(){
           <img src="https://img.freepik.com/free-vector/ecommerce-checkout-laptop-concept-illustration_114360-8243.jpg" alt="Home" className="home-img" />
         </div>
       </div>
+      <h2 className="FAQ-title">Best Sellers</h2>
       <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
       <div className="carousel-inner">
         <div className="carousel-item active">
