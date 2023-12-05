@@ -9,6 +9,8 @@ import Cancel from './components/Cancel';
 import Home from './pages/Home';
 import CartPage from './pages/CartPage';
 import Checkout from './checkout/Checkout';
+import LoginScreen from './pages/LoginScreen';
+import RegisterScreen from './pages/RegisterScreen';
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
     <Route path="/success" element={<Success />} /> 
     <Route path="/cancel" element={<Cancel />} /> 
     <Route path='/home' element={<Home/>}/>
+    <Route path="/login" element={<LoginScreen/>} />
+      <Route path="/register" element={<RegisterScreen/>} />
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
     </Routes>
