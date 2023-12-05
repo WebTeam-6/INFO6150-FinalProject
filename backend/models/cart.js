@@ -8,28 +8,35 @@ const CartSchema = new mongoose.Schema({
       },
     items: [
         {
-          productId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product', 
-            required: true,
-          },
-          quantity: {
-            type: Number,
-            default: 1,
-          },
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true,
         },
+        quantity: {
+          type: Number,
+          required: true,
+          default: 1,
+        },
+        product: {
+          type: Object,
+        },
+      },
       ],
     status:{
         default : 0,
         type: Number,
     },
     deliveryFees: {
+        default : 0,
         type: Number,
     },
     taxes:{
+      default : 0,
         type: Number,
     },
     total: {
+      default : 0,
         type: Number,
     },
     createdAt: {
