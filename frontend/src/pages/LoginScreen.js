@@ -29,6 +29,8 @@ const LoginScreen = () => {
       const user = response.data;
       setUserInfo(user);
 
+      localStorage.setItem('token', user.token);
+
       // Redirect after successful login
       if (user) {
         navigate(nextRedirect);
