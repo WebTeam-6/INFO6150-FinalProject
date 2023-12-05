@@ -21,7 +21,7 @@ function ProductDetailPage(){
     const [productDetails, setProdDetails] = useState([]);
     const [prodQuantity, setProdQuantity]=useState(1);
 
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmQxNmU3MzM4MGRlYjM3Mjg4YWRkYiIsImlhdCI6MTcwMTY0ODM4MiwiZXhwIjoxNzAxNzM0NzgyfQ.bZa0mNKoY8KrvqHsulc-ppsNGStr8k4g1PpAMmZwo1Q');
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmYyNzYxM2NmMzJhOGIwNzcyMTVkNiIsImlhdCI6MTcwMTc4NDQyOSwiZXhwIjoxNzA0Mzc2NDI5fQ.kzptTAPhYLTqjxsdibF8vDK9b5eQ9Wp19Dht9tO7ChY');
     const token = localStorage.getItem('token');
     console.log("token", token);
     const decodedToken = jwtDecode(token);
@@ -33,12 +33,16 @@ function ProductDetailPage(){
         const req = {
             "userId": userId,
             "productId": productId,
-            "quantity": 1
+            "quantity": prodQuantity
+        }
+        if(prodQuantity <=0){
+            alert('Minimum product quantity should be 1');
+        }else{
+            const response = await axios.post(addToCartUrl, req);
+
+            console.log("addToCart response ", response.data);
         }
 
-        const response = await axios.post(addToCartUrl, req);
-
-        console.log("addToCart response ", response.data);
     }
 
     useEffect(()=>{
@@ -145,11 +149,13 @@ function ProductDetailPage(){
           <p className="pb-2 text-xs text-gray-500">Quantity</p>
           <div className="alterQuantityBtnGrp">
             {/* <button className={`${plusMinusButton}`}>−</button> */}
-            <button class="incDecBtn" >−</button>
+            <button class="incDecBtn" 
+           onClick={()=>setProdQuantity(prevQuantity => prevQuantity>0?prevQuantity-1:0)} 
+            >−</button>
             <div style={{marginRight:"10px"}}>
               {prodQuantity}
             </div>
-            <button class="incDecBtn"> +</button>
+            <button class="incDecBtn" onClick={()=>setProdQuantity(prevQuantity => prevQuantity+1)}> +</button>
           </div>
         </div>
         <div className="mt-7 flex flex-row items-center gap-6">

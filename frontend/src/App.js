@@ -11,6 +11,8 @@ import CartPage from './pages/CartPage';
 import Checkout from './checkout/Checkout';
 import Dashboard from './components/Dashboard';
 import Admin from './components/Admin';
+import LoginScreen from './pages/LoginScreen';
+import RegisterScreen from './pages/RegisterScreen';
 
 
 function App() {
@@ -24,9 +26,12 @@ function App() {
     <Route path="/success" element={<Success />} /> 
     <Route path="/cancel" element={<Cancel />} /> 
     <Route path='/home' element={<Home/>}/>
+    <Route path="/login" element={<LoginScreen/>} />
+      <Route path="/register" element={<RegisterScreen/>} />
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
     <Route path="/dashboard" element={<Admin/>} />
+    <Route path='/orders' element={<Orders/>}/>
     </Routes>
   </BrowserRouter>
   );

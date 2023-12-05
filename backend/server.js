@@ -8,6 +8,7 @@ var  productRouter  = require('./routes/productRouter.js') ;
 var userRouter = require('./routes/userRoute')
 var orderRoute = require('./routes/orderRoute.js')
 var bodyParser = require("body-parser");
+var cartRouter = require('./routes/cartRouter.js')
 
 // const uri = "mongodb+srv://" + process.env.DB_USERNAME  + ":" + process.env.DB_PASSWORD + "@cluster0.ql2dquw.mongodb.net/Shilpkala?retryWrites=true&w=majority";
 const uri = "mongodb+srv://" + process.env.DB_USERNAME  + ":" + process.env.DB_PASSWORD + "@cluster0.ukrlfk9.mongodb.net/Shlipkala?retryWrites=true&w=majority";
@@ -17,7 +18,8 @@ app.use(bodyParser.json());
 
 app.use('/user',userRouter);
 app.use('/product', productRouter);
-app.use('/orders',orderRoute)
+app.use('/orders',orderRoute);
+app.use('/cart',cartRouter);
 
 async function connect(){
     try{
