@@ -12,11 +12,12 @@ function CartPage(){
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const drawerWidth = isMobile ? 200 : 280; 
 
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmQxNmU3MzM4MGRlYjM3Mjg4YWRkYiIsImlhdCI6MTcwMTY0ODM4MiwiZXhwIjoxNzAxNzM0NzgyfQ.bZa0mNKoY8KrvqHsulc-ppsNGStr8k4g1PpAMmZwo1Q');
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmYyNzYxM2NmMzJhOGIwNzcyMTVkNiIsImlhdCI6MTcwMTc4NDQyOSwiZXhwIjoxNzA0Mzc2NDI5fQ.kzptTAPhYLTqjxsdibF8vDK9b5eQ9Wp19Dht9tO7ChY');
     const token = localStorage.getItem('token');
     console.log("token", token);
     const decodedToken = jwtDecode(token);
     const userId = decodedToken.id;
+    console.log("userId ", userId);
     const [cartData, setCartData] = useState([]);
     const [cartAltered, setCartAltered] = useState(false);
     var getCartUrl = `http://localhost:8000/cart/getCart/${userId}`;
@@ -31,7 +32,7 @@ function CartPage(){
         const getCartByUser = async() =>{
         try {
           //console.log("getCartUrl ", getCartUrl);
-          const cartDataResponse = await axios.post(getCartUrl);
+          const cartDataResponse = await axios.get(getCartUrl);
           console.log("getCart response ", cartDataResponse.data);
           setCartData(cartDataResponse.data);
           //console.log("cartData ", cartData);
@@ -48,9 +49,9 @@ function CartPage(){
             const url = `${modifyProdFromCartUrl}&prodCartId=${prodCartId}&action=${action}`;
             console.log("deleteProdFromCartUrl ", url);
             const cartDataResponse = await axios.post(url);
-            console.log("getCart response ", cartDataResponse.data);
+            console.log("getCart response ", cartDataResponse.data.cart);
             if (cartDataResponse.status === 200) {
-              setCartData(cartDataResponse.data);
+              setCartData(cartDataResponse.data.cart);
               setCartAltered(!cartAltered);
             } else {
               console.error('Failed to remove product from cart');
@@ -122,14 +123,14 @@ function CartPage(){
               cartData.items?.map((cartItem) => (
                 <div className="cart-item" key={cartItem._id}>
                   <div className="cart-product">
-                    <img src={cartItem.productId.image} alt={cartItem.productId.title} />
+                    <img src={cartItem.product.image} alt={cartItem.product.title} />
                     <div>
-                      <h3>{cartItem.productId.title}</h3>
+                      <h3>{cartItem.product.title}</h3>
                       {/* <p>{cartItem.productId.description}</p> */}
                       <button onClick={() => handlemodifyProdFromCart(cartItem._id, 'remove')}>Remove</button>
                     </div>
                   </div>
-                  <div className="cart-product-price">${cartItem.productId.price}</div>
+                  <div className="cart-product-price">${cartItem.product.price}</div>
                   <div className="cart-product-quantity">
                     <button onClick={() => handlemodifyProdFromCart(cartItem._id, 'decrease')}>
                       -
@@ -139,7 +140,7 @@ function CartPage(){
                     {/* <button >+</button> */}
                   </div>
                   <div className="cart-product-total-price">
-                    ${cartItem.productId.price * cartItem.quantity}
+                    ${cartItem.product.price * cartItem.quantity}
                   </div>
                 </div>
               ))}
@@ -152,7 +153,7 @@ function CartPage(){
             <div className="cart-checkout">
             <div className="taxes">
             <span>Taxes</span>
-            <span>${cartData.total}</span>
+            <span>${cartData.taxes}</span>
             </div>
             <div className="deliveryfees">
             <span>Delivery Fees</span>
@@ -160,7 +161,7 @@ function CartPage(){
             </div>
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount">${cartData.total}</span>
+                <span className="amount">${cartData.total + cartData.deliveryFees + cartData.taxes}</span>
               </div>
               {/* <p>Taxes and shipping calculated at checkout</p> */}
               {/* {auth._id ? ( */}

@@ -57,7 +57,7 @@ const ProductController = {
     async get_productsByFiltering(req, res) {
         try {
             console.log("in get products by");
-            const { sortBy, colors, category, price, page, pageSize, sortDirection, searchByTitle, maxAverageRating } = req.query;
+            const { sortBy, colors, category, price, page, pageSize, sortDirection, searchByTitle, minAverageRating } = req.query;
 
             let query = {};
 
@@ -81,9 +81,9 @@ const ProductController = {
               query.price = { $gte: parseFloat(min), $lte: parseFloat(max) };
             }
 
-            console.log("maxAverageRating", maxAverageRating);
-            if (maxAverageRating) {
-                query.averageRating = {$gte: parseFloat(0), $lte: parseFloat(maxAverageRating) };
+            console.log("minAverageRating", minAverageRating);
+            if (minAverageRating) {
+                query.averageRating = {$gte: parseFloat(minAverageRating) };
             }
 
             //search
