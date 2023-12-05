@@ -55,13 +55,3 @@ img{
 .p-c-left{
   display: flex;
 }
-
-.fav :hover{
-  color: red;
-  cursor: pointer;
-}
-
-.bag :hover{
-  color: yellow;
-  cursor: pointer;
-}

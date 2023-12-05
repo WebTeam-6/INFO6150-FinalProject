@@ -121,7 +121,16 @@ function ProductPage(){
           }
 
             const response = await axios.get(productDataUrl);
-            setFilteredData(response.data.products);
+            // setFilteredData(response.data.products);
+            //TODO: check if the wishlastarray in response.data.products contains the user id 2
+            const userId = '6563cc81b198c2de022e2661';
+            // Add containsUserId to the filtered data
+            const filteredDataWithUserId = response.data.products.map((product) => ({
+              ...product,
+              containsUserId: product.wishlist.includes(userId),
+            }));
+            setFilteredData(filteredDataWithUserId);
+            console.log(filteredData)
             console.log(response.data.products.length);
             const calculatedTotalPages = response.data.totalPages;
             console.log(calculatedTotalPages)
@@ -140,6 +149,7 @@ function ProductPage(){
     const handlePageChange = (event, value) => {
       console.log(value)
       setCurrentPage(value);
+      console.log(filteredData);
     };
 
     return(
@@ -191,7 +201,7 @@ function ProductPage(){
         </Select>
       </FormControl>
     </div>
-        <Products result={filteredData.map(({ _id, image, title, averageRating, price, reviews }) => {
+        <Products result={filteredData.map(({ _id, image, title, averageRating, price, reviews, containsUserId}) => {
         const count = reviews.length;
         return (
           <Card
@@ -202,6 +212,7 @@ function ProductPage(){
             value={averageRating}
             price={price}
             count = {count}
+            containsUserId = {containsUserId}
           />
         );
       })} />
