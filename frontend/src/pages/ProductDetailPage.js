@@ -35,19 +35,15 @@ function ProductDetailPage(){
             "productId": productId,
             "quantity": prodQuantity
         }
+        if(prodQuantity <=0){
+            alert('Minimum product quantity should be 1');
+        }else{
+            const response = await axios.post(addToCartUrl, req);
 
-        const response = await axios.post(addToCartUrl, req);
+            console.log("addToCart response ", response.data);
+        }
 
-        console.log("addToCart response ", response.data);
     }
-
-    // const handleDecreaseProductQuantity = async() =>{
-    //     // if(prodQuantity >0){
-    //         setProdQuantity(prevQuantity => prevQuantity>0 ? prevQuantity-1 : 0);
-    //     // }else{
-    //     //     setProdQuantity(0);
-    //     // }
-    // }
 
     useEffect(()=>{
         
