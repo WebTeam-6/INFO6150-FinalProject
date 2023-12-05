@@ -9,6 +9,8 @@ import Cancel from './components/Cancel';
 import Home from './pages/Home';
 import CartPage from './pages/CartPage';
 import Checkout from './checkout/Checkout';
+import Dashboard from './components/Dashboard';
+import Admin from './components/Admin';
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
     <Route path='/home' element={<Home/>}/>
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
+    <Route path="/dashboard" element={<Admin/>} />
     </Routes>
   </BrowserRouter>
   );
