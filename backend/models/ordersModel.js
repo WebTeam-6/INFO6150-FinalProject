@@ -11,7 +11,13 @@ const OrderSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "order placed"
+    },
+    createdAt:{
+        type: Date,
+        default: Date.now
     }
-})
+},
+{timestamps: true}
+)
 
 module.exports = mongoose.model('orders', OrderSchema);
