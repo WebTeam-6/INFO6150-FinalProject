@@ -23,6 +23,7 @@ const updateOrderStatus = async (req, res) => {
 
 const AddOrder = async (req, res) => {
   try {
+    console.log("AddOrder req", req);
     const cartId = req.body.cartId;
     const cart = await Cart.findById(cartId);
     if (cart ) {

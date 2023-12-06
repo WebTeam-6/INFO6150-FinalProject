@@ -7,7 +7,7 @@ const CartController = {
   try {
     console.log("addToCart ", req.body);
     const { userId, productId, quantity } = req.body;
-    let cart = await Cart.findOne({ userId });
+    let cart = await Cart.findOne({ userId, status: 0, });
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
@@ -24,6 +24,7 @@ const CartController = {
                             total: 0,
                             taxes: 0,
                             deliveryFees: 0, 
+                            status:0
                           });
       newCart.total = calculateTotalPrice(newCart);
       console.log("totalPrice ", newCart.total);
@@ -142,7 +143,11 @@ const CartController = {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  }
+  },
+
+  // async updateCartStatus (req, res){
+
+  // }
 
 };
 
@@ -155,7 +160,7 @@ const calculateTotalPrice = (cart) => {
 };
 
 const calculateTaxes = (total) => {
-  return 0.1 * total; 
+  return Math.round(0.1 * total * 100)/100; 
 };
 
 
