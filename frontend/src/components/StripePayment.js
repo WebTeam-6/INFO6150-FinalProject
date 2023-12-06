@@ -35,7 +35,7 @@ const makePayment = async (product) => {
 function StripePayment() {
   let product = {
     name: "Bags",
-    price: 1000,
+    price: 4000,
     productOwner: "Shilpkala",
     description:
       "This beginner-friendly Full-Stack Web Development Course is offered online in blended learning mode, and also in an on-demand self-paced format.",

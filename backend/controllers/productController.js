@@ -155,33 +155,39 @@ const ProductController = {
     },
 
     //update product 
-    async update_product(req, res) {
-        const existing = await Product.findById(req.params.id);
-        if(!existing){
-            res.status(404).json({
-                type: "error",
-                message: "Product doesn't exists"
-            })
-        } else {
-            try {
-                const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {
-                    $set: req.body
-                },
-                    { new: true }
-                );
-                res.status(200).json({
-                    type: "success",
-                    message: "Product updated successfully",
-                    updatedProduct
-                })
-            } catch (err) {
-                res.status(500).json({
-                    type: "error",
-                    message: "Something went wrong please try again",
-                    err
-                })
-            }
-        }
+    async update_productWhishlist(req, res) {
+       const productId = req.params.productId;
+       const {userId} = req.body;
+       console.log(req.params)
+       try{
+        const product = await Product.findById(productId);
+        console.log("product ", product);
+        
+    if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+
+      const index = product.wishlist.indexOf(userId);
+
+      if (index !== -1) {
+        // User ID exists in the wishlist, remove it
+        product.wishlist.splice(index, 1);
+      } else {
+        // User ID doesn't exist in the wishlist, add it
+        product.wishlist.push(userId);
+      }
+      console.log(product)
+    
+      await product.save();
+      res.json({ message: 'Product updated successfully' ,product});
+
+       }
+       catch(error){
+        console.log(error);
+        res.status(500).json({ error: error });
+
+       }
+
     },
 
     /* update product rating */

@@ -8,7 +8,7 @@
 }
 
 .card-p{
-  flex: 0 1 25%;
+  flex: 0 1 30%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   margin-left: 25px;
   margin-top: 20px;
@@ -54,14 +54,4 @@ img{
 
 .p-c-left{
   display: flex;
-}
-
-.fav :hover{
-  color: red;
-  cursor: pointer;
-}
-
-.bag :hover{
-  color: yellow;
-  cursor: pointer;
 }

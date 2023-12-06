@@ -34,6 +34,10 @@ const ProductSchema = new mongoose.Schema({
     },
     reviews: { 
         type: Array, //array of ratings(number) and reviews(string)
+    },
+    wishlist : {
+        type: Array,
+        default: []
     }
 },
     { timestamps: true }

@@ -1,7 +1,6 @@
 import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartCheckout from "@mui/icons-material/ShoppingCartCheckout";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import * as React from "react";
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -74,7 +73,23 @@ function NavBar({cartSize}) {
         navigate("/cart");
       }
       
+      const handleOrders = () =>{
+        navigate('/orders')
+      }
 
+      const handleAccount = ()=>{
+
+      }
+
+      const handleLogout = () =>{
+        
+      }
+
+      const goList = () =>{
+        navigate('/wishlist')
+      }
+
+      
   return (
     <>
   
@@ -95,7 +110,7 @@ function NavBar({cartSize}) {
           <Box sx={{ display: { md: "flex" ,sm:"block"} }}>
             <IconButton size="large">
               <Badge badgeContent={4} color="error">
-                <FavoriteBorderIcon sx={{ fontSize: "30px" }} />
+                <FavoriteBorderIcon sx={{ fontSize: "30px" }} onClick={goList}/>
               </Badge>
             </IconButton>
             <IconButton size="large" onClick={goToCart}>
@@ -103,6 +118,7 @@ function NavBar({cartSize}) {
                 <ShoppingCartCheckout sx={{ fontSize: "30px" }} />
               </Badge>
             </IconButton>
+
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -126,11 +142,15 @@ function NavBar({cartSize}) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleAccount}>
+                Account
+              </MenuItem>
+              <MenuItem onClick={handleOrders}>
+                Orders
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                Logout
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
