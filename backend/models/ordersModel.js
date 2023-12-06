@@ -6,7 +6,9 @@ const OrderSchema = new mongoose.Schema({
         required: true
     },
     cartId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cart',
+        required: true,
     },
     status: {
         type: String,
