@@ -119,7 +119,7 @@ function DashBoard() {
       <PieChart chartData={chartData} />
       <BarGraph chartData={barChart} />
     </div>
-    <div className="ratings">
+    <div className="ratings-average">
       <div className="rating-left">
         <h2>Average Rating</h2>
       </div>
