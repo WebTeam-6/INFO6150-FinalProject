@@ -102,10 +102,13 @@ function CartPage(){
   );
 
   const session = await response.json();
+  localStorage.setItem("sessionId", session.id);
 
   const result = stripe.redirectToCheckout({
-    sessionId: session.id,
+    sessionId: session.id
   });
+
+  console.log("result ", result);
 
   if (result.error) {
     console.log(result.error);

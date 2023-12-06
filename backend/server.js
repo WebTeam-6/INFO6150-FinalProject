@@ -10,6 +10,8 @@ var orderRoute = require('./routes/orderRoute.js')
 var bodyParser = require("body-parser");
 var cartRouter = require('./routes/cartRouter.js')
 var adminRouter = require('./routes/adminRouter.js')
+var paymentRouter = require('./routes/paymentRouter.js')
+const orderController = require('./controllers/orderController.js');
 const Stripe = require("stripe");
 const stripe = Stripe('sk_test_51OJQvKAPl4YpXYxVfgVmncSENwXYfKKTRMxuJDGp64hxD8f4tqwjphj9z55fVxywGsWWU1XGGQnlIADsur22kO0W00Yg3nytwu')
 
@@ -24,6 +26,7 @@ app.use('/product', productRouter);
 app.use('/orders',orderRoute);
 app.use('/cart',cartRouter);
 app.use('/admin',adminRouter);
+app.use('/payment',paymentRouter);
 
 async function connect(){
     try{
@@ -44,7 +47,7 @@ app.listen(8000,()=>{
 app.post("/api/create-checkout-session", async (req, res) => {
     const  order  = req.body;
     const items = order.items;
-
+    console.log("req.body", order);
     try {
         const lineItems = items.map(item => ({
             price_data: {
@@ -62,17 +65,53 @@ app.post("/api/create-checkout-session", async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3000/success",
+            success_url: `http://localhost:3000/success`,
             cancel_url: "http://localhost:3000/cancel",
             invoice_creation: {
                 enabled: true,
-            }
+            },
+            metadata: {
+                userId: order.userId,
+                cartId: order._id,
+            },
         });
 
-        console.log(session);
-        res.json({ id: session.id });
+        // session.success_url = `http://localhost:3000/success/${session.id}`;
+
+         console.log("session ", session);
+         
+
+        return res.json({ id: session.id });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error });
     }
 });
+
+
+// app.post("/webhook", async (req, res) => {
+//     const sig = req.headers["stripe-signature"];
+  
+//     let event;
+  
+//     try {
+//       event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
+//     } catch (err) {
+//       return res.status(400).send(`Webhook Error: ${err.message}`);
+//     }
+  
+//     // Handle the event
+//     if (event.type === "checkout.session.completed") {
+//       const session = event.data.object;
+//         console.log("payment successful ");
+//       // Update your order status or perform other actions here
+//       const addOrderReq = {
+//         userId: session.metadata.userId,
+//         cartId: session.metadata.cartId,
+//       };
+  
+//       await orderController.AddOrder(addOrderReq);
+//     }
+  
+//     res.json({ received: true });
+//   });
