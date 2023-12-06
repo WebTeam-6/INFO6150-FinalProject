@@ -8,6 +8,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ManImage from '../assets/man.png';
 import { useNavigate } from "react-router-dom";
+import logo from "../images/shilpkalaLogo.png";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -78,6 +79,9 @@ function NavBar({cartSize}) {
     <>
   
         <Toolbar className="tool-bar" >
+        <Typography component="div" className="logo">
+          <img src={logo} alt="Shilpkala" style={{ height: '80px', marginRight: '0px' }} />
+        </Typography>
         <Search>
             <SearchIconWrapper>
               <SearchIcon />
