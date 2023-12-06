@@ -9,11 +9,13 @@ import Cancel from './components/Cancel';
 import Home from './pages/Home';
 import CartPage from './pages/CartPage';
 import Checkout from './checkout/Checkout';
-import Dashboard from './components/Dashboard';
-import Admin from './components/Admin';
+import Dashboard from './components/AdminNav';
+import Admin from './components/Dashboard';
 import LoginScreen from './pages/LoginScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import AddProductPage from './pages/AddProductPage';
+import WishListPage from './pages/wishListPage';
+import DashBoardPage from './pages/DashBoardPage';
 
 
 function App() {
@@ -31,8 +33,9 @@ function App() {
       <Route path="/register" element={<RegisterScreen/>} />
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
-    <Route path="/dashboard" element={<Admin/>} />
+    <Route path="/dashboard" element={<DashBoardPage/>} />
     <Route path="/addProduct" element={<AddProductPage/>} />
+    <Route path="/wishlist" element={<WishListPage/>} />
     </Routes>
   </BrowserRouter>
   );

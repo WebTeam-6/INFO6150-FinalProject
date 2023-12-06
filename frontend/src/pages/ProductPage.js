@@ -3,13 +3,14 @@ import SideNav from "../components/SideNav";
 import { AppBar, Box, CssBaseline, FormControl, MenuItem, OutlinedInput, Select, Toolbar, useMediaQuery,
     useTheme } from "@mui/material";
 import Card from "../components/Card";
+import { jwtDecode } from 'jwt-decode'
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-  const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
@@ -123,7 +124,11 @@ function ProductPage(){
             const response = await axios.get(productDataUrl);
             // setFilteredData(response.data.products);
             //TODO: check if the wishlastarray in response.data.products contains the user id 2
-            const userId = '6563cc81b198c2de022e2661';
+            const token = localStorage.getItem('token');
+            console.log("token", token);
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.id;
+            console.log("userId ", userId);
             // Add containsUserId to the filtered data
             const filteredDataWithUserId = response.data.products.map((product) => ({
               ...product,

@@ -6,12 +6,8 @@ import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ManImage from '../assets/man.png';
-<<<<<<< HEAD
-import { useNavigate } from 'react-router-dom';
-=======
 import { useNavigate } from "react-router-dom";
 
->>>>>>> 674fbda0b105ba87d855d7ecf7543aac6d3480dc
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -88,6 +84,10 @@ function NavBar({cartSize}) {
         
       }
 
+      const goList = () =>{
+        navigate('/wishlist')
+      }
+
       
   return (
     <>
@@ -106,7 +106,7 @@ function NavBar({cartSize}) {
           <Box sx={{ display: { md: "flex" ,sm:"block"} }}>
             <IconButton size="large">
               <Badge badgeContent={4} color="error">
-                <FavoriteBorderIcon sx={{ fontSize: "30px" }} />
+                <FavoriteBorderIcon sx={{ fontSize: "30px" }} onClick={goList}/>
               </Badge>
             </IconButton>
             <IconButton size="large" onClick={goToCart}>

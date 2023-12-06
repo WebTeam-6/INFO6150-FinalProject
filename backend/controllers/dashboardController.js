@@ -103,15 +103,3 @@ async getTotalAverageRatings(req, res){
 module.exports = DashboardController;
 
 
-<<<<<<< HEAD
-// weekly stat i want response like that [{'sunday': 13,'monday': 10}]
-
-// total no users
-
-// Average ratings
-
-// total orders
-
-// revenue till date
-=======
->>>>>>> 674fbda0b105ba87d855d7ecf7543aac6d3480dc
