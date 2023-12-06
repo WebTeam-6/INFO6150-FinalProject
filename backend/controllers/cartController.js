@@ -69,7 +69,10 @@ const CartController = {
   async getCart (req, res) {
     try {
         const userId = req.params.userId;
-        const cart = await Cart.findOne({ userId }).populate('items.product');
+        const cart = await Cart.findOne({
+          userId,
+          status: 0,
+        }).populate('items.product');
     
         if (!cart) {
           return res.status(404).json({ error: 'Cart not found' });
@@ -80,6 +83,16 @@ const CartController = {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
       }
+  },
+
+  async  getAllCarts(req,res){
+    try{
+      const orders = await Cart.find();
+      return res.status(200).json(orders);
+    }
+    catch(error){
+      return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
   },
 
   async modifyCartProduct(req, res){

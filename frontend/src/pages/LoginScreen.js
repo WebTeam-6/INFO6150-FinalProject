@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 
 const LoginScreen = () => {
@@ -56,7 +57,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <Container>
+    <>
+        <Container>
       <FormContainer>
         <h1>Sign In</h1>
         {error && <Message variant="danger">{error}</Message>}
@@ -97,6 +99,9 @@ const LoginScreen = () => {
         </Row>
       </FormContainer>
     </Container>
+    <Footer/>
+    </>
+
   );
 };
 

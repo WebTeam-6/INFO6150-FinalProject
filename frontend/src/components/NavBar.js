@@ -92,7 +92,7 @@ function NavBar({cartSize}) {
   return (
     <>
   
-        <Toolbar className="tool-bar">
+        <Toolbar className="tool-bar" >
         <Search>
             <SearchIconWrapper>
               <SearchIcon />

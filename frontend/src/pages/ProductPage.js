@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Footer from "../components/Footer";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -159,15 +160,17 @@ function ProductPage(){
 
     return(
         <>
+        
         <Box sx={{ display: "flex"}}>
         <CssBaseline />
-      <AppBar
+        <AppBar
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`  ,backgroundColor: 'white',}}
       >
        <NavBar/>
       </AppBar>
-      <SideNav handleChange={handleChange} handleSliderChange={handleSliderChange}  handleReviewClick={handleReviewClick}/>
+      
+      <SideNav handleChange={handleChange} handleSliderChange={handleSliderChange}  handleReviewClick={handleReviewClick}/>  
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
@@ -230,8 +233,12 @@ function ProductPage(){
     </Stack>
       </div>
       </Box>
+      
         </Box>
+        <Footer/>
         </>
+
+       
     );
 }
 
