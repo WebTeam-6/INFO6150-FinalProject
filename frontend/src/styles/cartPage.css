@@ -101,6 +101,8 @@
     cursor: pointer;
   }
   .cart-checkout {
+    
+    justify-self: right;
     width: 270px;
     max-width: 100%;
   }
@@ -157,6 +159,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .taxes, .deliveryfees{
+    display: flex;
+    justify-content: space-between;
   }
   
   /* Responsive */

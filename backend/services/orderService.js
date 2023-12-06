@@ -22,15 +22,17 @@ const sendTwilioMessage = async (to, body) => {
 
 const updateOrderStatusService = async (orderId, status) => {
     try {
+      console.log("status", status);
       const updatedOrder = await Order.findByIdAndUpdate(
         orderId,
-        {status: status} 
+        {status: status},
+        { new: true }  
     );
 
       if (!updatedOrder) {
         throw new Error('Order not found');
       }
-
+      console.log("updatedOrder ", updatedOrder);
       const emailSubject = 'Order Status Update';
       const recipientEmail = 'adapachinnu28@gmail.com';
 
@@ -51,7 +53,7 @@ const updateOrderStatusService = async (orderId, status) => {
         const twilioMessage = `Exciting news! Your order is out for delivery. Keep an eye out for our delivery team!`;
         await sendTwilioMessage('+18577537075', twilioMessage);
       }
-      else if (status === 'order delivered' ) {
+      else if (status === 'delivered' ) {
         const filePath = `./html/orderDelivered.html`;
         emailHTML = await fs.readFile(filePath, 'utf-8');
         console.log(emailHTML)

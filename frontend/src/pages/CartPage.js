@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 
 function CartPage(){
@@ -147,36 +148,10 @@ function CartPage(){
           </div>
           <div className="cart-summary">
             {/* <button className="clear-btn" onClick={() => handleClearCart()}> */}
-            <button className="clear-btn">
+            {/* <button className="clear-btn">
               Clear Cart
-            </button>
-            <div className="cart-checkout">
-            <div className="taxes">
-            <span>Taxes</span>
-            <span>${cartData.taxes}</span>
-            </div>
-            <div className="deliveryfees">
-            <span>Delivery Fees</span>
-            <span>${cartData.deliveryFees}</span>
-            </div>
-              <div className="subtotal">
-                <span>Subtotal</span>
-                <span className="amount">${cartData.total + cartData.deliveryFees + cartData.taxes}</span>
-              </div>
-              {/* <p>Taxes and shipping calculated at checkout</p> */}
-              {/* {auth._id ? ( */}
-                <button>Check out</button>
-              {/* ) : (
-                <button
-                  className="cart-login"
-                  onClick={() => navigate("/login")}
-                >
-                  Login to Check out
-                </button>
-              ) */}
-              {/* } */}
-
-              <div className="continue-shopping">
+            </button> */}
+             <div className="continue-shopping">
                 <Link to="/">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -194,11 +169,39 @@ function CartPage(){
                   <span>Continue Shopping</span>
                 </Link>
               </div>
+            <div className="cart-checkout">
+              <div className="taxes">
+              <span>Taxes</span>
+              <span>${cartData.taxes}</span>
+              </div>
+              <div className="deliveryfees">
+              <span>Delivery Fees</span>
+              <span>${cartData.deliveryFees}</span>
+              </div>
+              <div className="subtotal">
+                <span>Subtotal</span>
+                <span className="amount">${cartData.total + cartData.deliveryFees + cartData.taxes}</span>
+              </div>
+              {/* <p>Taxes and shipping calculated at checkout</p> */}
+              {/* {auth._id ? ( */}
+                <button>Check out</button>
+              {/* ) : (
+                <button
+                  className="cart-login"
+                  onClick={() => navigate("/login")}
+                >
+                  Login to Check out
+                </button>
+              ) */}
+              {/* } */}
+
+
             </div>
           </div>
         </div>
       )}
     </div>
+    <Footer/>
         </>
     );
 }

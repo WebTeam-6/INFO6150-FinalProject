@@ -14,6 +14,7 @@ import Admin from './components/Admin';
 import LoginScreen from './pages/LoginScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import AddProductPage from './pages/AddProductPage';
+import UpdateOrders from './pages/UpdateOrders';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
     <Route path="/checkout" element={<Checkout/>} />
     <Route path="/dashboard" element={<Admin/>} />
     <Route path="/addProduct" element={<AddProductPage/>} />
+    <Route path="/productStatus" element={<UpdateOrders/>} />
     </Routes>
   </BrowserRouter>
   );

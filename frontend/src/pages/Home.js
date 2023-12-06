@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import NavBar from '../components/NavBar';
 import { Accordion, AccordionDetails, AccordionSummary, AppBar, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Footer from '../components/Footer';
 
 const FAQData = [
     {
@@ -168,6 +169,7 @@ function Home(){
         </div>
       </div>
     </section>
+    <Footer/>
         </>
     );
 }

@@ -10,7 +10,7 @@ const OrderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: "order placed"
+        default: "Order Placed"
     },
     createdAt:{
         type: Date,
