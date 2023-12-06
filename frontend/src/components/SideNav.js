@@ -21,7 +21,7 @@ import {
 
 
 
-export default function SideNav({ handleChange ,handleSliderChange}) {
+export default function SideNav({ handleChange ,handleSliderChange, handleReviewClick}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -90,7 +90,7 @@ export default function SideNav({ handleChange ,handleSliderChange}) {
         <Divider />
         <List>
           <ListItemText>Customer Reviews</ListItemText>
-          <ListItem className="filter" inset>
+          <ListItem className="filter" inset onClick={() => handleReviewClick(4.0)}>
             <Box
               sx={{
                 width: 200,
@@ -111,7 +111,7 @@ export default function SideNav({ handleChange ,handleSliderChange}) {
             </Box>
           </ListItem>
 
-          <ListItem className="filter" inset>
+          <ListItem className="filter" inset  onClick={() => handleReviewClick(3.0)}>
             <Box
               sx={{
                 width: 200,
@@ -131,7 +131,7 @@ export default function SideNav({ handleChange ,handleSliderChange}) {
               <Box sx={{ ml: 2 }}>{"& up"}</Box>
             </Box>
           </ListItem>
-          <ListItem className="filter" inset>
+          <ListItem className="filter" inset onClick={() => handleReviewClick(2.0)}>
             <Box
               sx={{
                 width: 200,
@@ -152,7 +152,7 @@ export default function SideNav({ handleChange ,handleSliderChange}) {
             </Box>
           </ListItem>
 
-          <ListItem className="filter" inset>
+          <ListItem className="filter" inset  onClick={() => handleReviewClick(1.0)}>
             <Box
               sx={{
                 width: 200,
@@ -190,6 +190,7 @@ export default function SideNav({ handleChange ,handleSliderChange}) {
     </Box>
         </List>
       </Drawer>
+      
     </>  
   );
 }

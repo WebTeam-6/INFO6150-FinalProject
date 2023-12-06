@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ManImage from '../assets/man.png';
+import { useNavigate } from "react-router-dom";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -49,10 +50,11 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
 
-function NavBar() {
+function NavBar({cartSize}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+    const navigate = useNavigate();
 
 
     const handleProfileMenuOpen = (event) => {
@@ -66,6 +68,10 @@ function NavBar() {
       const handleCloseUserMenu = () => {
         setAnchorElUser(null);
       };
+
+      function goToCart(){
+        navigate("/cart");
+      }
       
 
   return (
@@ -88,7 +94,7 @@ function NavBar() {
                 <FavoriteBorderIcon sx={{ fontSize: "30px" }} />
               </Badge>
             </IconButton>
-            <IconButton size="large">
+            <IconButton size="large" onClick={goToCart}>
               <Badge badgeContent={3} color="error">
                 <ShoppingCartCheckout sx={{ fontSize: "30px" }} />
               </Badge>

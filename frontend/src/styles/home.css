@@ -57,14 +57,14 @@ h1{
 }
 
 
-.card{
+/* .card{
     height: 350px;
     text-align: center;
 }
 
 .card-image{
     height: 250px;
-}
+} */
 
 .btn{
     background-color: #940B92;
@@ -79,3 +79,17 @@ h1{
     margin-top: 70px;
 
 }
+
+/* App.css or your styles file */
+.App {
+    display: inline-block;
+    width: 50%;
+    margin: 0 auto;
+
+  }
+  
+  .chart-container {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  

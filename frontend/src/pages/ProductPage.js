@@ -20,6 +20,7 @@ const MenuProps = {
   },
 };
 
+
 const names = [
   'Low to High',
   'High to Low',
@@ -45,11 +46,12 @@ function ProductPage(){
     const [criteria, setcriteria] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedPrice, setSelectedPrice] = useState(null);
+    const [selectedRating,setSelectedRating] = useState(null);
     const [filteredData,setFilteredData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
   
-    var productDataUrl = `http://localhost:8000/product/get?pageSize=2`;
+    var productDataUrl = `http://localhost:8000/product/get?pageSize=3`;
     const [selectedFilter,setSelectedFilter] = useState(null)
     
     const handleChange = (event) => {
@@ -74,6 +76,10 @@ function ProductPage(){
       
     };
 
+    const handleReviewClick = (rating) => {
+      setSelectedRating(rating);
+    };
+
     useEffect(() => {
 
       const fetchFilteredData = async () => {
@@ -89,6 +95,11 @@ function ProductPage(){
              productDataUrl = `${productDataUrl}&price=0-${selectedPrice}`;
              console.log(productDataUrl);
           }
+
+          if(selectedRating!== null){
+            productDataUrl = `${productDataUrl}&maxAverageRating=${selectedRating}`
+          }
+
           console.log(selectedFilter)
           if(selectedFilter !== null){
             if(selectedFilter === 'High to Low'){
@@ -96,6 +107,12 @@ function ProductPage(){
             }
             if(selectedFilter === 'Low to High'){
               productDataUrl = `${productDataUrl}&sortBy=price&sortDirection=asc`;
+            }
+            if(selectedFilter === 'Highly Rated'){
+              productDataUrl = `${productDataUrl}&sortBy=averageRating&sortDirection=desc`
+            }
+            if(selectedFilter === 'Least Rated'){
+              productDataUrl = `${productDataUrl}&sortBy=averageRating&sortDirection=asc`
             }
           }
 
@@ -118,7 +135,7 @@ function ProductPage(){
       };
   
       fetchFilteredData();
-    }, [selectedCategory,selectedPrice,selectedFilter, currentPage]); 
+    }, [selectedCategory,selectedPrice,selectedFilter, selectedRating,currentPage]); 
   
     const handlePageChange = (event, value) => {
       console.log(value)
@@ -135,7 +152,7 @@ function ProductPage(){
       >
        <NavBar/>
       </AppBar>
-      <SideNav handleChange={handleChange} handleSliderChange={handleSliderChange} />
+      <SideNav handleChange={handleChange} handleSliderChange={handleSliderChange}  handleReviewClick={handleReviewClick}/>
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
