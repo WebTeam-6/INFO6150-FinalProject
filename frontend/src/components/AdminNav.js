@@ -12,10 +12,30 @@ import Inventory2Icon from '@mui/icons-material/Inventory2';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
-export default function Dashboard() {
+export default function AdminNav() {
+  const navigate = useNavigate();
+
+  function handleDashboardNavigation(){
+    navigate(`/dashboard`);
+  }
+
+  function handleAddOrderNavigation(){
+    navigate(`/addProduct`);
+  }
+
+  function handleUpdateStatusNavigation(){
+    navigate(`/orderStatus`);
+  }
+
+  // function handleSignout(){
+
+  // }
+
+
   return (
 <>
   
@@ -39,7 +59,7 @@ export default function Dashboard() {
                 <ListItemIcon>
                     <DashboardIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Dashboard"/>
+                <ListItemText primary="Dashboard" onClick={handleDashboardNavigation}/>
                 </ListItemButton>
             </ListItem>
             <ListItem>
@@ -47,7 +67,7 @@ export default function Dashboard() {
                 <ListItemIcon>
                     <Inventory2Icon/>
                 </ListItemIcon>
-                <ListItemText primary="Orders"/>
+                <ListItemText primary="Add Order" onClick={handleAddOrderNavigation}/>
                 </ListItemButton>
             </ListItem>
             <ListItem>
@@ -55,7 +75,7 @@ export default function Dashboard() {
                 <ListItemIcon>
                     <PeopleAltIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Users"/>
+                <ListItemText primary="Update Order Status" onClick={handleUpdateStatusNavigation}/>
                 </ListItemButton>
             </ListItem>
             <ListItem>
@@ -72,3 +92,4 @@ export default function Dashboard() {
 
   );
 }
+

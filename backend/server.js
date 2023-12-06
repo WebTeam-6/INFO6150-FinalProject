@@ -41,41 +41,6 @@ app.listen(8000,()=>{
     console.log("Server running");
 })
 
-// app.post("/api/create-checkout-session", async (req, res) => {
-//     const items = req.body.items;
-//     console.log(items)
-//     try {
-//         const lineItems = items.map(product =>({
-//             price_data: {
-//                 currency: "usd", 
-//                 product_data: {
-//                     name: product.title,
-//                 },
-//                 unit_amount: product.price 
-//             },
-//             quantity: product.quantity,
-//         }
-//         ));
-
-//         const session = await stripe.checkout.sessions.create({
-//             payment_method_types: ["card"],
-//             line_items: lineItems,
-//             mode: "payment",
-//             success_url: "http://localhost:3000/success",
-//             cancel_url: "http://localhost:3000/cancel",
-//             invoice_creation: {
-//                 enabled: true,
-//             },
-//         });
-
-//         console.log(session);
-//         res.json({ id: session.id });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// });
-
 app.post("/api/create-checkout-session", async (req, res) => {
     const  order  = req.body;
     const items = order.items;

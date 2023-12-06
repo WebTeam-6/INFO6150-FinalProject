@@ -39,7 +39,7 @@ function App() {
     <Route path="/dashboard" element={<DashBoardPage/>} />
     <Route path="/addProduct" element={<AddProductPage/>} />
     <Route path="/wishlist" element={<WishListPage/>} />
-    <Route path="/productStatus" element={<UpdateOrders/>} />
+    <Route path="/orderStatus" element={<UpdateOrders/>} />
     </Routes>
   </BrowserRouter>
   );
