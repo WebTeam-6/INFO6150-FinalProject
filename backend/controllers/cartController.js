@@ -85,6 +85,16 @@ const CartController = {
       }
   },
 
+  async  getAllCarts(req,res){
+    try{
+      const orders = await Cart.find();
+      return res.status(200).json(orders);
+    }
+    catch(error){
+      return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+  },
+
   async modifyCartProduct(req, res){
     try{
       const { userId, prodCartId, action } = req.query;
