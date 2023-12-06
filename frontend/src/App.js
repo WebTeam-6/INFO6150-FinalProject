@@ -14,6 +14,7 @@ import Admin from './components/Admin';
 import LoginScreen from './pages/LoginScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import AddProductPage from './pages/AddProductPage';
+import OrderHistory from './pages/OrderHistory';
 
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
     <Route path="/cancel" element={<Cancel />} /> 
     <Route path='/home' element={<Home/>}/>
     <Route path="/login" element={<LoginScreen/>} />
-      <Route path="/register" element={<RegisterScreen/>} />
+    <Route path="/register" element={<RegisterScreen/>} />
+    <Route path="/orderHistory" element={<OrderHistory/>} />
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
     <Route path="/dashboard" element={<Admin/>} />
