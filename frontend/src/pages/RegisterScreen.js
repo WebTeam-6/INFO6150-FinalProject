@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -116,7 +117,8 @@ const RegisterScreen = () => {
   };
 
   return (
-    <Container>
+    <>
+     <Container>
       <FormContainer>
         <h1>Sign Up</h1>
         {message && <Message variant="danger">{message}</Message>}
@@ -208,6 +210,9 @@ const RegisterScreen = () => {
         </Row>
       </FormContainer>
     </Container>
+    <Footer/>
+    </>
+   
   );
 };
 

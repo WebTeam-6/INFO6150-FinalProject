@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 function AddProductPage(){
     const [product, setProduct] = useState({
@@ -108,6 +109,7 @@ function AddProductPage(){
         <button type="submit" className="btn btn-primary">Add Product</button>
       </form>
     </div>
+    <Footer/>
     </>
     );
 }

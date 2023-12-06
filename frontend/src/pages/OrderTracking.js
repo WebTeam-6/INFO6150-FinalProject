@@ -1,6 +1,7 @@
 import { AppBar } from "@mui/material";
 import NavBar from "../components/NavBar";
 import Track from "../components/Track";
+import Footer from '../components/Footer';
 
 function OrderTracking(){
     return(
@@ -12,6 +13,7 @@ function OrderTracking(){
        <NavBar/>
       </AppBar>
         <Track />
+        <Footer/>
     </>
     )
 }
