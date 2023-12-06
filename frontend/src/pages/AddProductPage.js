@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import AdminNav from '../components/AdminNav';
+import { Box, CssBaseline } from "@mui/material";
+const drawerWidth = 240;
 
 function AddProductPage(){
     const [product, setProduct] = useState({
@@ -46,6 +49,13 @@ function AddProductPage(){
 
     return(
     <>
+         <Box sx={{ display: "flex"}}>
+            <CssBaseline />
+          <AdminNav/>
+        <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
  <div className="container mt-5">
       <h2>Add New Product</h2>
       <form onSubmit={handleSubmit}>
@@ -109,6 +119,9 @@ function AddProductPage(){
         <button type="submit" className="btn btn-primary">Add Product</button>
       </form>
     </div>
+      </Box>
+      </Box>
+
     <Footer/>
     </>
     );

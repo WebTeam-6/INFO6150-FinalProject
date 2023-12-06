@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/cartPage.css'
-import { AppBar, Box, CssBaseline, useMediaQuery, useTheme } from '@mui/material';
+import {useMediaQuery, useTheme } from '@mui/material';
 import NavBar from '../components/NavBar';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import { loadStripe } from "@stripe/stripe-js";
 
 
 function CartPage(){
@@ -82,7 +83,35 @@ function CartPage(){
       //       }
       // };
 
+      async function payment(){
+        console.log(cartData)
+        const stripe = await loadStripe("pk_test_51OJQvKAPl4YpXYxVSr574FTvLGc2z0tjGI3sduAAU3uGJM1udasMYr5uSOcLr1HegsI6wb9NoXjft3UQ0NNWgAqr00hWz5S9SX");
+  const body = { cartData };
 
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  const response = await fetch(
+    "http://localhost:8000/api/create-checkout-session",
+    {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(cartData),
+    }
+  );
+
+  const session = await response.json();
+
+  const result = stripe.redirectToCheckout({
+    sessionId: session.id,
+  });
+
+  if (result.error) {
+    console.log(result.error);
+  }
+      }
+      
 
     return(
         <>
@@ -184,7 +213,7 @@ function CartPage(){
               </div>
               {/* <p>Taxes and shipping calculated at checkout</p> */}
               {/* {auth._id ? ( */}
-                <button>Check out</button>
+                <button onClick={()=>payment()}>Check out</button>
               {/* ) : (
                 <button
                   className="cart-login"
@@ -194,8 +223,25 @@ function CartPage(){
                 </button>
               ) */}
               {/* } */}
-
-
+{/* 
+              <div className="continue-shopping">
+                <Link to="/">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="bi bi-arrow-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                    />
+                  </svg>
+                  <span>Continue Shopping</span>
+                </Link>
+              </div> */}
             </div>
           </div>
         </div>
