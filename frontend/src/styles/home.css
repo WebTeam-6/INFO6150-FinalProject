@@ -67,7 +67,8 @@ h1{
 } */
 
 .btn{
-    background-color: #940B92;
+    /* background-color: #940B92; */
+    background-color: #754e85;
 }
 
 .FAQ-title{
@@ -80,16 +81,55 @@ h1{
 
 }
 
-/* App.css or your styles file */
-.App {
-    display: inline-block;
-    width: 50%;
-    margin: 0 auto;
+  
+.App{
+    display: flex;
+    margin-top: 50px;
+}
 
-  }
-  
-  .chart-container {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-  
+.chart-container{
+    flex: 0 1 48%;
+    justify-content: center;
+    height: 350px;
+}
+
+.stat-card{
+    padding-top: 10px;
+    font-size: 20px;
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+    align-items: center;
+    color: whitesmoke;
+    margin-right: 15px;
+}
+
+.stats{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#one{
+    background-color: #f5365c ;
+}
+
+#two{
+    background-color: #ffd600;
+}
+
+#three{
+    background-color: #24a46d;
+}
+
+.ratings-average{
+    margin-top: 90px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 4px 10px rgba(21, 21, 21, 0.7);
+}
+
+.ratings h2{
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+}

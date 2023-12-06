@@ -3,13 +3,15 @@ import SideNav from "../components/SideNav";
 import { AppBar, Box, CssBaseline, FormControl, MenuItem, OutlinedInput, Select, Toolbar, useMediaQuery,
     useTheme } from "@mui/material";
 import Card from "../components/Card";
+import { jwtDecode } from 'jwt-decode'
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Footer from "../components/Footer";
 
-  const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
@@ -121,7 +123,20 @@ function ProductPage(){
           }
 
             const response = await axios.get(productDataUrl);
-            setFilteredData(response.data.products);
+            // setFilteredData(response.data.products);
+            //TODO: check if the wishlastarray in response.data.products contains the user id 2
+            const token = localStorage.getItem('token');
+            console.log("token", token);
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.id;
+            console.log("userId ", userId);
+            // Add containsUserId to the filtered data
+            const filteredDataWithUserId = response.data.products.map((product) => ({
+              ...product,
+              containsUserId: product.wishlist.includes(userId),
+            }));
+            setFilteredData(filteredDataWithUserId);
+            console.log(filteredData)
             console.log(response.data.products.length);
             const calculatedTotalPages = response.data.totalPages;
             console.log(calculatedTotalPages)
@@ -140,19 +155,22 @@ function ProductPage(){
     const handlePageChange = (event, value) => {
       console.log(value)
       setCurrentPage(value);
+      console.log(filteredData);
     };
 
     return(
         <>
+        
         <Box sx={{ display: "flex"}}>
         <CssBaseline />
-      <AppBar
+        <AppBar
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`  ,backgroundColor: 'white',}}
       >
        <NavBar/>
       </AppBar>
-      <SideNav handleChange={handleChange} handleSliderChange={handleSliderChange}  handleReviewClick={handleReviewClick}/>
+      
+      <SideNav handleChange={handleChange} handleSliderChange={handleSliderChange}  handleReviewClick={handleReviewClick}/>  
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
@@ -191,7 +209,7 @@ function ProductPage(){
         </Select>
       </FormControl>
     </div>
-        <Products result={filteredData.map(({ _id, image, title, averageRating, price, reviews }) => {
+        <Products result={filteredData.map(({ _id, image, title, averageRating, price, reviews, containsUserId}) => {
         const count = reviews.length;
         return (
           <Card
@@ -202,6 +220,7 @@ function ProductPage(){
             value={averageRating}
             price={price}
             count = {count}
+            containsUserId = {containsUserId}
           />
         );
       })} />
@@ -214,8 +233,12 @@ function ProductPage(){
     </Stack>
       </div>
       </Box>
+      
         </Box>
+        <Footer/>
         </>
+
+       
     );
 }
 

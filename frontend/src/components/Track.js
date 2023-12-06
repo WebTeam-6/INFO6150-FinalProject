@@ -142,7 +142,7 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const steps = ['Order Placed', 'Order Confirmed', 'Out for Delivery','Delivered'];
+const steps = ['order placed', 'order confirmed', 'out for delivery','delivered'];
 
 export default function Track() {
   return (

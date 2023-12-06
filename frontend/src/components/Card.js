@@ -3,10 +3,12 @@ import { BsFillBagFill } from "react-icons/bs";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
 
-function Card({ productId, image, title, value, price, count }) {
+function Card({ productId, image, title, value, price, count, containsUserId }) {
+  const [exists,setExists] = useState(containsUserId); 
+  console.log(exists)
 
   const addToCartUrl = `http://localhost:8000/cart/addToCart`;
   
@@ -34,10 +36,27 @@ function Card({ productId, image, title, value, price, count }) {
       navigate(`product/${productId}`);
     }
 
+
+    async function addToFav(productId){
+      console.log(productId.productId);      
+      const req={
+        "userId": userId
+      }
+      console.log(req);
+      const res = await axios.put(`http://localhost:8000/product/${productId.productId}`,req)
+      console.log(res)
+      if(res.data.product.wishlist.includes(userId)){
+        setExists(true)
+      }
+      else{
+        setExists(false);
+      }
+    }
+
   return (
     <>
-      <div className="card-p" onClick={product}>
-          <div className="card-img">
+      <div className="card-p">
+          <div className="card-img" onClick={product}>
             <img src={image}></img>
           </div>
           <div className="name">
@@ -56,7 +75,7 @@ function Card({ productId, image, title, value, price, count }) {
             </div>
             <div className="p-c-left">
               <div className="fav">
-              <FavoriteIcon className="fav-icon"/>
+              <FavoriteIcon style={{ color: exists ? 'red' : 'inherit' }}  onClick={() => addToFav({ productId })} />
               </div>
               <div className="bag" onClick={addToCartHandler}>
               <BsFillBagFill className="bag-icon" />

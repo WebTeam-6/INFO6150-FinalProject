@@ -10,6 +10,7 @@ import axios from "axios";
 import Reviews from "../components/Reviews";
 import NavBar from "../components/NavBar";
 import { jwtDecode } from "jwt-decode";
+import Footer from '../components/Footer';
 
 
 function ProductDetailPage(){
@@ -173,9 +174,10 @@ function ProductDetailPage(){
       </div>
     </section>
 
-    <div>
+    {productDetails?.reviews?.length !==0 ? ( <div>
         <Reviews reviews={productDetails.reviews} />
-    </div>
+    </div>) :<></>}
+    <Footer/>
     </>
     );
 }
