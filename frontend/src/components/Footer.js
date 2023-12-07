@@ -8,7 +8,7 @@ import {
 
 const Footer = () =>{
   return (
-    // <MDBFooter className='text-center text-white' style={{backgroundColor: '#754e85'}}>
+// <MDBFooter className='text-center text-white' style={{backgroundColor: '#754e85'}}>
     <>
     <br></br>
     <MDBFooter className='text-center text-white' style={{backgroundColor: '#754e85'}} id='footer'>

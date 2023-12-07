@@ -36,6 +36,9 @@ function WishListPage() {
   return (
     <>
      <NavBar/>
+     <h2 style={{   fontWeight: "400", marginTop:"20px",
+    fontSize: "30px",
+    textAlign: "center"}}>WishList</h2>
     <div className='card-container'>
       {/* {productData
         .filter(product => product.wishlist.includes(userId)) */}
