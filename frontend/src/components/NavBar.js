@@ -1,13 +1,10 @@
-import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartCheckout from "@mui/icons-material/ShoppingCartCheckout";
+import { Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import * as React from "react";
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import ManImage from '../assets/man.png';
 import { useNavigate } from "react-router-dom";
-import logo from "../images/shilpkalaLogo.png";
+import Button from '@mui/material/Button';import logo from "../images/shilpkalaLogo.png";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -74,7 +71,7 @@ function NavBar({cartSize}) {
       }
       
       const handleOrders = () =>{
-        navigate('/orders')
+        navigate('/orderHistory')
       }
 
       const handleAccount = ()=>{
@@ -93,32 +90,21 @@ function NavBar({cartSize}) {
   return (
     <>
   
-        <Toolbar className="tool-bar" >
+        <Toolbar className="tool-bar" style={{boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)"}} >
         <Typography component="div" className="logo">
           <img src={logo} alt="Shilpkala" style={{ height: '80px', marginRight: '0px' }} />
         </Typography>
-        <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { md: "flex" ,sm:"block"} }}>
-            <IconButton size="large">
-              <Badge badgeContent={4} color="error">
-                <FavoriteBorderIcon sx={{ fontSize: "30px" }} onClick={goList}/>
-              </Badge>
-            </IconButton>
-            <IconButton size="large" onClick={goToCart}>
-              <Badge badgeContent={3} color="error">
-                <ShoppingCartCheckout sx={{ fontSize: "30px" }} />
-              </Badge>
-            </IconButton>
-
+                          <Button onClick={goList} sx={{color: '#754e85', fontWeight: 'bold'}}>
+                WishList
+              </Button>
+              <Button onClick={goToCart} sx={{color: '#754e85',  fontWeight: 'bold'}}>
+                Cart
+              </Button>
+              <Button onClick={handleOrders} sx={{color: '#754e85',  fontWeight: 'bold'}}>
+                Orders
+              </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -144,9 +130,6 @@ function NavBar({cartSize}) {
             >
               <MenuItem onClick={handleAccount}>
                 Account
-              </MenuItem>
-              <MenuItem onClick={handleOrders}>
-                Orders
               </MenuItem>
               <MenuItem onClick={handleLogout}>
                 Logout

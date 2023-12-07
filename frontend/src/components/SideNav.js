@@ -47,7 +47,7 @@ export default function SideNav({ handleChange ,handleSliderChange, handleReview
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            marginLeft: isMobile ? "0px" : "20px", 
+            paddingLeft: isMobile ? "0px" : "20px", 
           },
         }}
         variant="permanent"

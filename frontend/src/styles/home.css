@@ -133,3 +133,80 @@ h1{
     font-family: 'Poppins', sans-serif;
     font-size: 26px;
 }
+
+.css-dpdynl {
+    margin-right: 10px;
+}
+
+/* OrderHistory.css */
+
+.wrapp {
+    padding: 20px;
+  }
+  
+  .history-cards {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .history-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 60%;
+    margin-bottom: 20px;
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .history-items {
+    display: flex;
+    align-items: center;
+  }
+  
+  .item {
+    flex-grow: 1;
+    margin-right: 20px;
+  }
+  
+  .item h3 {
+    margin-bottom: 5px;
+    font-family:  'Poppins', sans-serif;
+    font-size: 18px;
+  }
+  
+  .item-image img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .history-card{
+    display: flex;
+  }
+
+  .history-items{
+    margin-bottom: 10px;
+  }
+  .history-card2{
+    /* display: flex; */
+    padding-bottom: 10px;
+  }
+
+  .titlePrice{
+    margin-left: 10px;
+  }
+
+  #trackBtn{
+    border: none;
+    background-color: black;
+    color: whitesmoke;
+    padding: 8px;
+  }
+  .history2{
+  }
+  /* .Total {
+    text-align: right;
+  } */
+  
+  /* Add more styles as needed */
+  
