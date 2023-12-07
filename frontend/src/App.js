@@ -24,13 +24,13 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<ProductPage/>} />
+    <Route path="/shop" element={<ProductPage/>} />
     <Route path="/product/:productId" element={<ProductDetailPage/>} />
     <Route path="/track/:orderStatus" element={<OrderTracking/>} />
     <Route path="/pay" element={<StripePayment/>}/>
     <Route path="/success" element={<Success />} /> 
     <Route path="/cancel" element={<Cancel />} /> 
-    <Route path='/home' element={<Home/>}/>
+    <Route path='/' element={<Home/>}/>
     <Route path="/login" element={<LoginScreen/>} />
     <Route path="/register" element={<RegisterScreen/>} />
     <Route path="/orderHistory" element={<OrderHistory/>} />
