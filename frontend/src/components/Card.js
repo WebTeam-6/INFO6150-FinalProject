@@ -4,11 +4,21 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Card({ productId, image, title, value, price, count, containsUserId }) {
+function Card({ productId, image, title, value, price, count, containsUserId, onRemoveFromWishlist }) {
   const [exists,setExists] = useState(containsUserId); 
   console.log(exists)
+
+  useEffect(() => {
+    setExists((prevExists) => {
+      if (!containsUserId) {
+        onRemoveFromWishlist && onRemoveFromWishlist(productId);
+      }
+      return containsUserId;
+    });
+  }, [containsUserId, onRemoveFromWishlist, productId]);
+
 
   const addToCartUrl = `http://localhost:8000/cart/addToCart`;
   
@@ -50,6 +60,7 @@ function Card({ productId, image, title, value, price, count, containsUserId }) 
       }
       else{
         setExists(false);
+        onRemoveFromWishlist && onRemoveFromWishlist(productId);
       }
     }
 

@@ -12,25 +12,51 @@ function WishListPage() {
   console.log("token", token);
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
+  const [favToggle, setFavToggle] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const productDataUrl = 'http://localhost:8000/product/getAll';
         const response = await axios.get(productDataUrl);
-        const filteredDataWithUserId = response.data.product.map((p) => ({
-            ...p,
-            containsUserId: p.wishlist.includes(userId),
-        }));
+        // const filteredDataWithUserId = response.data.product.map((p) => ({
+        //     ...p,
+        //     containsUserId: p.wishlist.includes(userId),
+        // }));
+        const filteredDataWithUserId = response.data.product.filter((p) =>
+                                        p.wishlist.includes(userId)
+                                      );
         setProductData(filteredDataWithUserId);
-        setWishlistData(wishlist=> filteredDataWithUserId.filter(product => product.wishlist.includes(userId)));
+        //setWishlistData(wishlist=> filteredDataWithUserId.filter(product => product.wishlist.includes(userId)));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [wishlistData]); 
+  }, [favToggle]); 
+
+  const containsUserId=  (event) =>{
+    const wishlistArray = event;
+    //setFavToggle(prevFavToggle => !prevFavToggle);
+    return wishlistArray.includes(userId);
+  
+  }
+
+  const handleRemoveFromWishlist = async (productId) => {
+    // Logic to remove product from wishlist
+    // ...
+
+    // Toggle the favToggle to trigger re-render
+
+    console.log("productId ", productId);
+    console.log("favToggle ", favToggle);
+    setFavToggle((prevFavToggle) => !prevFavToggle);
+  };
+
+
+
+
   console.log(productData)
 
   return (
@@ -42,7 +68,7 @@ function WishListPage() {
     <div className='card-container'>
       {/* {productData
         .filter(product => product.wishlist.includes(userId)) */}
-        {wishlistData
+        {productData
         .map((product) => (
             <Card
             key={product.id}
@@ -52,7 +78,9 @@ function WishListPage() {
             value={product.averageRating}
             price={product.price}
             count = {product.count}
-            containsUserId = {product.containsUserId}
+            containsUserId = {containsUserId(product.wishlist)}
+            onRemoveFromWishlist={() => handleRemoveFromWishlist(product._id)}
+            
           />
         ))}
     </div>

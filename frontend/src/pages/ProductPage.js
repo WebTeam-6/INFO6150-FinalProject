@@ -6,10 +6,13 @@ import Card from "../components/Card";
 import { jwtDecode } from 'jwt-decode'
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
+import { styled } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Footer from "../components/Footer";
+import SearchIcon from '@mui/icons-material/Search';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,6 +25,46 @@ const MenuProps = {
   },
 };
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: "white",
+  '&:hover': {
+    backgroundColor: "white",
+    borderColor:"black",
+  },
+  borderColor:"#000000",
+  //marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
 
 const names = [
   'Low to High',
@@ -52,6 +95,7 @@ function ProductPage(){
     const [filteredData,setFilteredData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [searchValue, setSearchValue] = useState(null);
   
     var productDataUrl = `http://localhost:8000/product/get?pageSize=3`;
     const [selectedFilter,setSelectedFilter] = useState(null)
@@ -78,6 +122,11 @@ function ProductPage(){
       
     };
 
+    const handleSearchChange = (event) =>{
+      console.log("search condition ", event.target.value);
+      setSearchValue(event.target.value);
+    };
+
     const handleReviewClick = (rating) => {
       setSelectedRating(rating);
     };
@@ -100,6 +149,11 @@ function ProductPage(){
 
           if(selectedRating!== null){
             productDataUrl = `${productDataUrl}&maxAverageRating=${selectedRating}`
+          }
+
+          if(searchValue !== null){
+            console.log("searchValue ", searchValue);
+            productDataUrl = `${productDataUrl}&searchByTitle=${searchValue}`
           }
 
           console.log(selectedFilter)
@@ -150,13 +204,17 @@ function ProductPage(){
       };
   
       fetchFilteredData();
-    }, [selectedCategory,selectedPrice,selectedFilter, selectedRating,currentPage]); 
+    }, [selectedCategory,selectedPrice,selectedFilter, selectedRating,currentPage, searchValue]); 
   
     const handlePageChange = (event, value) => {
       console.log(value)
       setCurrentPage(value);
       console.log(filteredData);
     };
+
+  
+
+
 
     return(
         <>
@@ -176,7 +234,21 @@ function ProductPage(){
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <div style={{display: "flex", justifyContent: "flex-end"}}>
+
+
+        <div style={{display: "flex", justifyContent: "space-between"}}>
+        <Search style={{ borderColor: 'black', marginTop:"35px" }}>
+            {/* <SearchIconWrapper> */}
+              <SearchIcon />
+            {/* </SearchIconWrapper> */}
+            <StyledInputBase
+              placeholder="Search by Title…"
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={handleSearchChange}
+              
+            />
+          </Search>
       <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
           multiple={false}
