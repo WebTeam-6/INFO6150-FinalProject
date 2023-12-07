@@ -2,23 +2,22 @@ const Order = require('../models/ordersModel')
 const emailService = require('./emailService');
 const userController = require('../controllers/userController')
 const fs = require('fs').promises;
-const accountSid = 'AC15b7cd1b3d11fa5ac53ea51038a9d85f'
-const authToken = '556839bef98a333e25ba7a886109f1c2'
-const mongoose = require('mongoose')
+var dotenv = require('dotenv');
+dotenv.config();
 
-const client = require('twilio')(accountSid,authToken);
+const client = require('twilio')(process.env.ACCOUNT_SID,process.env.AUTH_TOKEN);
 
 const sendTwilioMessage = async (to, body) => {
   try {
     const message = await client.messages.create({
       to,
-      from: '+18669718120',
+      from: '+18556656798',
       body,
     });
     console.log('Twilio message sent successfully. SID:', message.sid);
 
   } catch (error) {
-    console.error(`Error sending Twilio message: ${error.message}`);
+    console.error(`Error sending Twilio message: ${error}`);
   }
 };
 
@@ -53,7 +52,7 @@ const updateOrderStatusService = async (orderId, status) => {
         console.log(emailHTML)
         await emailService.sendEmail(recipientEmail, emailSubject, emailHTML);
         const twilioMessage = `Great news! Your order has been confirmed, and we're getting everything ready for you. Stay tuned for further updates!`;
-      await sendTwilioMessage('+18577537075', twilioMessage);
+      await sendTwilioMessage('+17744868766', twilioMessage);
       }
       else if (status === 'out for delivery' ) {
         const filePath = `./html/outForDelivery.html`;
@@ -61,7 +60,7 @@ const updateOrderStatusService = async (orderId, status) => {
         console.log(emailHTML)
         await emailService.sendEmail(recipientEmail, emailSubject, emailHTML);
         const twilioMessage = `Exciting news! Your order is out for delivery. Keep an eye out for our delivery team!`;
-        await sendTwilioMessage('+18577537075', twilioMessage);
+        await sendTwilioMessage('+17744868766', twilioMessage);
       }
       else if (status === 'delivered' ) {
         const filePath = `./html/orderDelivered.html`;
@@ -69,7 +68,7 @@ const updateOrderStatusService = async (orderId, status) => {
         console.log(emailHTML)
         await emailService.sendEmail(recipientEmail, emailSubject, emailHTML);
         const twilioMessage = `Great news! Your order has been confirmed, and we're getting everything ready for you. Stay tuned for further updates!`;
-        await sendTwilioMessage('+18577537075', twilioMessage);
+        await sendTwilioMessage('+17744868766', twilioMessage);
       }
   
       return updatedOrder;

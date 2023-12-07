@@ -13,7 +13,7 @@ const makePayment = async (product) => {
   };
 
   const response = await fetch(
-    "http://localhost:8000/api/create-checkout-session",
+    "http://localhost:8000/payment/create-checkout-session",
     {
       method: "POST",
       headers: headers,
