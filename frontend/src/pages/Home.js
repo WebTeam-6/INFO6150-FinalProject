@@ -68,9 +68,6 @@ function Home(){
                   <img src="https://images.squarespace-cdn.com/content/v1/53a20827e4b0c1bc4487322a/1699299287388-RXW75MSR7JEGCE2DR6Y9/IMG_6244%2B2.jpg?format=1000w" className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Handmade Candles</h5>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-secondary mb-3">Shop</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -79,9 +76,6 @@ function Home(){
                   <img src="https://www.thesprucecrafts.com/thmb/Dx5mGpkOyAhQmh_GrY1EMFU2IPA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-700713961-5a6c5c1ca18d9e0037b04811.jpg" className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Ceramics & Pottery</h5>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-secondary mb-3">Shop</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -90,9 +84,6 @@ function Home(){
                   <img src="https://theneonteaparty.com/wp-content/uploads/2022/03/How-to-Crochet-with-Multiple-Strands-of-Yarn-1-scaled.jpg" className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Crocheting & Knitting</h5>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-secondary mb-3">Shop</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -107,9 +98,6 @@ function Home(){
                   <img src="https://assets.vogue.in/photos/5fb6bca749cee77f06f7e22d/2:3/w_2560%2Cc_limit/Bathtub%2520Series%2520AB.jpg" className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Traditional Handloom</h5>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-secondary mb-3">Shop</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -118,9 +106,6 @@ function Home(){
                   <img src="https://5.imimg.com/data5/SELLER/Default/2022/4/MX/GG/WP/146184681/img-20210926-wa0424-500x500.jpg" className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Handmade Jewelleries</h5>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-secondary mb-3">Shop</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -129,9 +114,6 @@ function Home(){
                   <img src="https://latinapalace.com/cdn/shop/products/Facetune_26-07-2022-17-25-58.jpg?v=1658964192" className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Leather Bags</h5>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-secondary mb-3">Shop</button>
-                    </div>
                   </div>
                 </div>
               </div>

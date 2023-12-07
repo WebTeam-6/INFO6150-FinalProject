@@ -102,7 +102,7 @@ async getTotalProducts(req, res){
   try {
       const allProducts = await Product.find({});
       console.log("totalProducts ", allProducts);
-      const totalProducts = allProducts.data.length;
+      const totalProducts = allProducts.length;
       
       return res.json({totalProducts});
     } catch (error) {

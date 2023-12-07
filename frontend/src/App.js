@@ -21,6 +21,7 @@ import OrderHistory from "./pages/OrderHistory";
 import RegistrationPage from "./pages/RegistrationPage";
 import PrivateRoutes from "./components/PrivateRoute";
 import ProtectedRoutes from "./components/ProtectedRoute";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/addProduct" element={<AddProductPage />} />
           <Route path="/orderStatus" element={<UpdateOrders />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );

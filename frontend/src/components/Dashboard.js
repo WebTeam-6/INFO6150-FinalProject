@@ -7,6 +7,7 @@ import BarGraph from "./BarGraph";
 import PeopleIcon from '@mui/icons-material/People';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import { Rating } from "@mui/material";
+import CategoryIcon from '@mui/icons-material/Category';
 
 Chart.register(CategoryScale);
 
@@ -26,7 +27,7 @@ function DashBoard() {
         const orders= await axios.get("http://localhost:8000/admin/dashboard/getTotalOrders");
         const customers = await axios.get("http://localhost:8000/admin/dashboard/getTotalNoOfCustomers");
         const ratings = await axios.get("http://localhost:8000/admin/dashboard/getTotalAverageRatings");
-       // const products = await axios.get("http://localhost:8000/admin/dashboard/getTotalProducts");
+       const products = await axios.get("http://localhost:8000/admin/dashboard/getTotalProducts");
         const apiResponseData = response.data.result;
         const barApiResponseData = barResponse.data.weeklyOrders[0];
         setPieData(apiResponseData);
@@ -34,7 +35,7 @@ function DashBoard() {
         setTotalOrders(orders.data?.totalOrders);
         setApiBarData(barApiResponseData);
         setAvgRating(ratings.data?.averageRating);
-       // setTotalProducts(products.data?.totalProducts);
+       setTotalProducts(products.data?.totalProducts);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -80,7 +81,7 @@ function DashBoard() {
     fill: true,
     datasets: [
       {
-        label: "Category Counts",
+        label: "Orders Placed",
         data: Object.values(apiBarData),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -115,7 +116,7 @@ function DashBoard() {
         <p>{totalProducts}</p>
       </div>
       <div className="stat-right">
-      <PeopleIcon/>
+      <CategoryIcon/>
       </div>
     </div>
     </div>

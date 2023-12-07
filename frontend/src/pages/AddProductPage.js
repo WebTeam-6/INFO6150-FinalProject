@@ -121,8 +121,6 @@ function AddProductPage(){
     </div>
       </Box>
       </Box>
-
-    <Footer/>
     </>
     );
 }
