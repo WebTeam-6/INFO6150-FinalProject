@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
-
 const LoginForm = () => {
 
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ const LoginForm = () => {
 
   return (
     <>
-
     <NavBar/>
     <div className="container mt-lg-5">
       <div className="row">
@@ -79,7 +77,6 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-
     <Footer/>
     </>
   );
