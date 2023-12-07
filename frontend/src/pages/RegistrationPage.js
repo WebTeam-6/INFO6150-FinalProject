@@ -17,13 +17,24 @@ const RegistrationForm = () => {
   } = useForm({ mode: 'onChange' });
 
   const onSubmit = async (data) => {
-    const response = await axios.post("https://localhost:8000/user/", data);
-    if (response.status === 200) {
-        navigate('/login');
-    } else {
-        console.error("Server error:", response.statusText);
+    try{
+        const response = await axios.post("http://localhost:8000/user/", data);
+        console.log(response)
+        
+        if (response.status === 200 || response.status === 201) {
+          navigate('/login');
+        } 
+        
+    }catch(error){
+        if(error.response.status === 400){
+            alert("User already exists");
+          }
+          else {
+            alert("Server error: " + error);
+          }
     }
-    console.log(data);
+
+      console.log(data);
   };
 
   const login = () =>{
@@ -115,13 +126,13 @@ const RegistrationForm = () => {
                 <div className="form-check form-check-inline">
                   <input
                     className={`form-check-input ${
-                      errors.sex ? "is-invalid" : ""
+                      errors.gender ? "is-invalid" : ""
                     }`}
                     id="male"
                     type="radio"
                     value="male"
-                    name="sex"
-                    {...register("sex", {
+                    name="gender"
+                    {...register("gender", {
                       required: "Please select your gender",
                     })}
                   />
@@ -132,13 +143,13 @@ const RegistrationForm = () => {
                 <div className="form-check form-check-inline">
                   <input
                     className={`form-check-input ${
-                      errors.sex ? "is-invalid" : ""
+                      errors.gender ? "is-invalid" : ""
                     }`}
                     id="female"
                     type="radio"
-                    name="sex"
+                    name="gender"
                     value="female"
-                    {...register("sex", {
+                    {...register("gender", {
                       required: "Please select your gender",
                     })}
                   />
@@ -149,13 +160,13 @@ const RegistrationForm = () => {
                 <div className="form-check form-check-inline">
                   <input
                     className={`form-check-input ${
-                      errors.sex ? "is-invalid" : ""
+                      errors.gender ? "is-invalid" : ""
                     }`}
                     id="other"
                     type="radio"
-                    name="sex"
+                    name="gender"
                     value="other"
-                    {...register("sex", {
+                    {...register("gender", {
                       required: "Please select your gender",
                     })}
                   />
@@ -164,7 +175,7 @@ const RegistrationForm = () => {
                   </label>
                 </div>
               </div>
-              <div className="invalid-feedback">{errors.sex?.message}</div>
+              <div className="invalid-feedback">{errors.gender?.message}</div>
             </div>
 
             <div className="col-md-6">

@@ -16,8 +16,11 @@ const LoginForm = () => {
   } = useForm();
 
   const onSubmit =async  (data) => {
-    const response = await axios.post("https://localhost:8000/user/", data);
+    const response = await axios.post("http://localhost:8000/user/login", data);
+    console.log("response", response);
+     localStorage.setItem("token", response.data.token);
     if (response.status === 200) {
+      
         navigate('/');
     } else {
         console.error("Server error:", response.statusText);
