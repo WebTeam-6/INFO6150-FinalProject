@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Montserrat:wght@100;400&family=Poltawski+Nowy:wght@500&family=Poppins:wght@200;400&family=Tiro+Devanagari+Sanskrit&family=Titan+One&display=swap');
+
+.card-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.card-p{
+  flex: 0 1 30%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  margin-left: 25px;
+  margin-top: 20px;
+}
+
+.ratings{
+  display: flex;
+  margin-left: 10px;
+}
+
+img{
+  width:100%;
+  height: 200px;
+}
+
+.p-c{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name h1{
+  text-align: center;
+  padding: 0px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+
+.price{
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.bag{
+  margin-right: 15px;
+  font-size: 20px;
+}
+
+.fav{
+  margin-right: 10px;
+  margin-top: 2px;
+}
+
+.p-c-left{
+  display: flex;
+}
