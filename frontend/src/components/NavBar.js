@@ -66,16 +66,8 @@ function NavBar({cartSize}) {
         setAnchorElUser(null);
       };
 
-      function goToProductsPage(){
-        navigate("/shop");
-      }
-
       function goToCart(){
         navigate("/cart");
-      }
-
-      function goToHome(){
-        navigate("/");
       }
       
       const handleOrders = () =>{
@@ -100,15 +92,11 @@ function NavBar({cartSize}) {
   
         <Toolbar className="tool-bar" style={{boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)"}} >
         <Typography component="div" className="logo">
-          <img src={logo} alt="Shilpkala" style={{ height: '80px', marginRight: '0px' }} 
-          onClick={goToHome} />
+          <img src={logo} alt="Shilpkala" style={{ height: '80px', marginRight: '0px' }} />
         </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { md: "flex" ,sm:"block"} }}>
-              <Button onClick={goToProductsPage} sx={{color: '#754e85', fontWeight: 'bold'}}>
-                Shop
-              </Button>
-              <Button onClick={goList} sx={{color: '#754e85', fontWeight: 'bold'}}>
+                          <Button onClick={goList} sx={{color: '#754e85', fontWeight: 'bold'}}>
                 WishList
               </Button>
               <Button onClick={goToCart} sx={{color: '#754e85',  fontWeight: 'bold'}}>

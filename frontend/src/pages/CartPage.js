@@ -37,7 +37,7 @@ function CartPage(){
           const cartDataResponse = await axios.get(getCartUrl);
           console.log("getCart response ", cartDataResponse.data);
           setCartData(cartDataResponse.data);
-          console.log("getCartByUser cartData ", cartData);
+          //console.log("cartData ", cartData);
          } catch (error) {
             console.log(error.message);
           }
@@ -121,7 +121,7 @@ function CartPage(){
        <NavBar/>
     <div className="cart-container">
       <h2>Shopping Cart</h2>
-      {cartData.length===0 || cartData.items?.length === 0 ? (
+      {cartData.items?.length === 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
           <div className="start-shopping">

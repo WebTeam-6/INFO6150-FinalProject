@@ -202,11 +202,11 @@ h1{
     color: whitesmoke;
     padding: 8px;
   }
-  
-  a{
-    color: blue;
-    text-decoration: underline;
+  .history2{
   }
-  #footer{
-    margin-top: 90px;
-}
+  /* .Total {
+    text-align: right;
+  } */
+  
+  /* Add more styles as needed */
+  
