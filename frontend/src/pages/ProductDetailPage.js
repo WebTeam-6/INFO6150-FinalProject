@@ -166,10 +166,6 @@ function ProductDetailPage(){
             Add to cart
           </button>
           {/* <button className="flex h-12 w-1/3 items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300"> */}
-          <button id="addToWishlistBtn" onClick="{handleAddToWishList}">
-            <AiOutlineHeart className="mx-2" />
-            Wishlist
-          </button>
         </div>
       </div>
     </section>

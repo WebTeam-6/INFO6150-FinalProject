@@ -180,9 +180,6 @@ function NavBar({cartSize}) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleAccount}>
-                Account
-              </MenuItem>
               <MenuItem onClick={handleLogout}>
                 Logout
               </MenuItem>
