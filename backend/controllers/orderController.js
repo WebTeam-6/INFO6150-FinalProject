@@ -34,6 +34,7 @@ const AddOrder = async (req, res) => {
       //update cart status to 1
       cart.status = 1;
       await cart.save();
+      console.log('IM CALLINGGGG')
       return res.status(201).json({ success: true, order });
     } else {
       return res
@@ -50,6 +51,7 @@ const AddOrder = async (req, res) => {
       .json({ success: false, message: "Internal Server Error" });
   }
 };
+
 
 const getAllOrders = async(req,res) =>{
   try{

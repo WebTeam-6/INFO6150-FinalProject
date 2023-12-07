@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'
+
 
 function Success() {
-  // const location = useLocation();
-  // console.log("location ", location);
-  //const { sessionId } = useParams();
-  // const sessionId = new URLSearchParams(location.search).get('session_id');
   const sessionId = localStorage.getItem('sessionId');
   console.log('Session ID:', sessionId);
   const getSessionDetailsUrl = `http://localhost:8000/payment/get-session-details/${sessionId}`;
@@ -20,7 +18,7 @@ function Success() {
         const sessionDetails = response.data.sessionData;
 
         console.log("sessionDetails ", sessionDetails);
-
+        console.log(sessionDetails)
         const { userId, cartId } = sessionDetails?.metadata;
 
         console.log("userId ", userId);

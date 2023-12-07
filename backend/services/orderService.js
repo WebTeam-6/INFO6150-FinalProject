@@ -2,7 +2,7 @@ const Order = require('../models/ordersModel')
 const emailService = require('./emailService');
 const fs = require('fs').promises;
 const accountSid = 'AC15b7cd1b3d11fa5ac53ea51038a9d85f'
-const authToken = '147adb43fbbb552875088eaf3f209a72'
+const authToken = '556839bef98a333e25ba7a886109f1c2'
 
 const client = require('twilio')(accountSid,authToken);
 

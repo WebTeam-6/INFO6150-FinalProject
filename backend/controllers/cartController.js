@@ -99,7 +99,7 @@ const CartController = {
   async modifyCartProduct(req, res){
     try{
       const { userId, prodCartId, action } = req.query;
-      const cart = await Cart.findOne({ userId });
+      const cart = await Cart.findOne({ userId, status: 0, });
   
       if (!cart) {
         return res.status(404).json({ error: 'Cart not found' });
