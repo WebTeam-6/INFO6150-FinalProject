@@ -148,7 +148,7 @@ function ProductPage(){
           }
 
           if(selectedRating!== null){
-            productDataUrl = `${productDataUrl}&maxAverageRating=${selectedRating}`
+            productDataUrl = `${productDataUrl}&minAverageRating=${selectedRating}`
           }
 
           if(searchValue !== null){

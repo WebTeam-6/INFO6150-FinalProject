@@ -40,6 +40,9 @@ function Card({ productId, image, title, value, price, count, containsUserId, on
       const response = await axios.post(addToCartUrl, req);
 
       console.log("addToCart response ", response.data);
+      if(response.status === 200){
+        alert("Product added to the Cart!!");
+      }
     }
 
     function product(){

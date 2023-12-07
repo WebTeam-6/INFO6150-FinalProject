@@ -4,8 +4,9 @@ import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import ManImage from '../assets/man.png';
 import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';import logo from "../images/shilpkalaLogo.png";
-
+import Button from '@mui/material/Button';
+import logo from "../images/shilpkalaLogo.png";
+import { jwtDecode } from "jwt-decode";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -52,6 +53,27 @@ function NavBar({cartSize}) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     const navigate = useNavigate();
+    const [tokenDefined,setTokenDefined] = React.useState(false);
+
+    const token = localStorage.getItem("token");
+    let isAuthenticated = false;
+  
+    console.log(token);
+  
+    if (token !=='undefined' && token !==null) {
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken)
+      console.log(decodedToken.exp)
+          const currentTime = Math.floor(Date.now() / 1000);
+          if (decodedToken.exp < currentTime) {
+            isAuthenticated = false;
+          }
+          else{
+            isAuthenticated = true;
+          }
+    } else {
+      isAuthenticated = false;
+    }
 
 
     const handleProfileMenuOpen = (event) => {
@@ -87,11 +109,20 @@ function NavBar({cartSize}) {
       }
 
       const handleLogout = () =>{
-        
+        localStorage.removeItem("token");
+        navigate('/');
       }
 
       const goList = () =>{
         navigate('/wishlist')
+      }
+
+      const goHome =()=>{
+        navigate('/')
+      }
+      
+      const openLogin = () =>{
+        navigate('/login')
       }
 
       
@@ -105,7 +136,12 @@ function NavBar({cartSize}) {
         </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { md: "flex" ,sm:"block"} }}>
-              <Button onClick={goToProductsPage} sx={{color: '#754e85', fontWeight: 'bold'}}>
+          <Button onClick={goHome} sx={{color: '#754e85', fontWeight: 'bold'}}>
+                Home
+              </Button>
+          {isAuthenticated && (
+            <>
+             <Button onClick={goToProductsPage} sx={{color: '#754e85', fontWeight: 'bold'}}>
                 Shop
               </Button>
               <Button onClick={goList} sx={{color: '#754e85', fontWeight: 'bold'}}>
@@ -117,9 +153,13 @@ function NavBar({cartSize}) {
               <Button onClick={handleOrders} sx={{color: '#754e85',  fontWeight: 'bold'}}>
                 Orders
               </Button>
+            </>
+               )}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+          {isAuthenticated && (
+            <>
+                        <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src={ManImage} />
               </IconButton>
@@ -147,6 +187,15 @@ function NavBar({cartSize}) {
                 Logout
               </MenuItem>
             </Menu>
+            </>
+          )}
+           {!isAuthenticated && (
+            <>
+            <Button onClick={openLogin} sx={{color: '#754e85',  fontWeight: 'bold'}}>
+                Login
+              </Button>
+            </>
+           )}
           </Box>
         </Toolbar>
     </>

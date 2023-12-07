@@ -8,7 +8,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Footer from '../components/Footer';
+import { Box, CssBaseline } from '@mui/material';
+import AdminNav from '../components/AdminNav';
+
+const drawerWidth = 240;
 
 const UpdateOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -64,6 +67,13 @@ const UpdateOrders = () => {
 
   return (
     <>
+       <Box sx={{ display: "flex"}}>
+            <CssBaseline />
+          <AdminNav/>
+        <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
     <div>
     <h1 style={{margin:"30px"}}>Update Order Status</h1>
     </div>
@@ -113,7 +123,8 @@ const UpdateOrders = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
-    <Footer/>
+        </Box>
+        </Box>
     </>
     
   );

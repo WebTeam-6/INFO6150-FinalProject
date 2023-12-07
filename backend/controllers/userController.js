@@ -20,7 +20,7 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       isAdminSeller: user.isAdminSeller,
-      token: generateToken(user._id),
+      token: generateToken(user._id,user.isAdmin),
     });
   } else {
     res.status(401);
@@ -58,7 +58,7 @@ const registerUser = asyncHandler(async (req, res) => {
       fullName: user.fullName,
       isAdmin: user.isAdmin,
       isAdminSeller: user.isAdminSeller,
-      token: generateToken(user._id),
+      token: generateToken(user._id,user.isAdmin),
     });
   } else {
     res.status(400);
@@ -107,7 +107,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
       isAdminSeller: updatedUser.isAdminSeller,
-      token: generateToken(updatedUser._id),
+      token: generateToken(updatedUser._id,updateUser.isAdmin),
     });
   } else {
     res.status(404);
@@ -142,7 +142,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select('-password');
+  const user = getUser(req.params.id);
 
   if (user) {
     res.json(user);
@@ -179,6 +179,10 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+
+const getUser = async (userId) => {
+  return await User.findById(userId).select('-password');
+}
 module.exports = {
   authUser,
   registerUser,
@@ -188,4 +192,5 @@ module.exports = {
   deleteUser,
   getUserById,
   updateUser,
+  getUser
 };

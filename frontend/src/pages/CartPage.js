@@ -184,7 +184,7 @@ function CartPage(){
               Clear Cart
             </button> */}
              <div className="continue-shopping">
-                <Link to="/">
+                <Link to="/shop">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
