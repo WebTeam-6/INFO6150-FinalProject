@@ -28,7 +28,7 @@ function App() {
         <Route path="/register" element={<RegistrationPage />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/shop" element={<ProductPage />} />
-          <Route path="/product/:productId" element={<ProductDetailPage />} />
+          <Route path="/shop/product/:productId" element={<ProductDetailPage />} />
           <Route path="/track/:orderStatus" element={<OrderTracking />} />
           <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />

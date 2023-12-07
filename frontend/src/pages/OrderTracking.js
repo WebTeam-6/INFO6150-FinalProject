@@ -14,12 +14,7 @@ function OrderTracking(){
   }
     return(
         <>
-         <AppBar
-        position="fixed"
-        sx={{backgroundColor: 'white',}}
-      >
        <NavBar/>
-      </AppBar>
         <Track getOrderStatus={orderStatus} />
         <Footer/>
     </>
