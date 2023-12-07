@@ -53,14 +53,16 @@ function NavBar({cartSize}) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     const navigate = useNavigate();
+    const [tokenDefined,setTokenDefined] = React.useState(false);
 
     const token = localStorage.getItem("token");
     let isAuthenticated = false;
   
     console.log(token);
   
-    if (token !=='undefined') {
+    if (token !=='undefined' && token !==null) {
       const decodedToken = jwtDecode(token);
+      console.log(decodedToken)
       console.log(decodedToken.exp)
           const currentTime = Math.floor(Date.now() / 1000);
           if (decodedToken.exp < currentTime) {

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { jwtDecode } from "jwt-decode";
 
 const LoginForm = () => {
 
@@ -18,10 +19,17 @@ const LoginForm = () => {
   const onSubmit =async  (data) => {
     const response = await axios.post("http://localhost:8000/user/login", data);
     console.log("response", response);
-     localStorage.setItem("token", response.data.token);
+    localStorage.setItem("token", response.data.token);
+    const token = localStorage.getItem('token');
+    console.log("token", token);
+    const decodedToken = jwtDecode(token);
     if (response.status === 200) {
-      
+      if(decodedToken.isAdmin == true){
+        navigate('/dashboard');
+      }
+      else{
         navigate('/');
+      }
     } else {
         console.error("Server error:", response.statusText);
     }

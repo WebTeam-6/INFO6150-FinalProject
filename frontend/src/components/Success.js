@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'
-
+import { useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 function Success() {
+  const navigate = useNavigate();
   const sessionId = localStorage.getItem('sessionId');
   console.log('Session ID:', sessionId);
   const getSessionDetailsUrl = `http://localhost:8000/payment/get-session-details/${sessionId}`;
-  const addOrderUrl = `http://localhost:8000/orders/`
+  const addOrderUrl = `http://localhost:8000/orders/`;
+
+  function viewOrders(){
+    navigate('/orderHistory')
+  }
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -39,21 +44,21 @@ function Success() {
   }, []);
   return (
     <>
-      <div className="card">
-        <img 
-          src="https://funtura.in/lko/wp-content/themes/funtura/assets/images/success.svg"
-          alt="Success Illustration"
-          style={{ maxWidth: '400px', height: 'auto' }}
-        />
-        <h4 style={{ textAlign: 'center', marginTop: '20px' }}>
-          Thanks for your order!<br/>
-          Your payment is successful.
-          <br/>
-          We appreciate your time!<br/>
-          If you have any questions, please email us at<br/>
-          <a href="mailto:orders@example.com">orders@example.com</a>.
-        </h4>
-      </div>
+    <NavBar/>
+       <div class="success-wrapper">
+        <div class="success-card">
+            <div class="success-content">
+                <img 
+                    src="https://funtura.in/lko/wp-content/themes/funtura/assets/images/success.svg"
+                    alt="Success Illustration"
+                />
+                <h4>Your Payment is Successful</h4>
+                <p>Thank you for the payment.</p>
+                <p onClick={viewOrders} style={{color: 'blue', textDecoration: 'underline'}}>View Your Orders</p>
+            </div>
+        </div>
+    </div>
+    <Footer/>
     </>
   );
 }

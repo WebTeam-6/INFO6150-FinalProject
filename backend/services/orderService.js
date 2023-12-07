@@ -1,8 +1,10 @@
 const Order = require('../models/ordersModel')
 const emailService = require('./emailService');
+const userController = require('../controllers/userController')
 const fs = require('fs').promises;
 const accountSid = 'AC15b7cd1b3d11fa5ac53ea51038a9d85f'
 const authToken = '556839bef98a333e25ba7a886109f1c2'
+const mongoose = require('mongoose')
 
 const client = require('twilio')(accountSid,authToken);
 
@@ -32,9 +34,17 @@ const updateOrderStatusService = async (orderId, status) => {
       if (!updatedOrder) {
         throw new Error('Order not found');
       }
+
+      console.log(updatedOrder);
+
+      
       console.log("updatedOrder ", updatedOrder);
+      const userId = updatedOrder.userId; // Convert userId to string
+     
+    const user = await userController.getUser(userId); // Convert string to ObjectId
+    console.log("user ", user);  
+    const recipientEmail = user.email;
       const emailSubject = 'Order Status Update';
-      const recipientEmail = 'adapachinnu28@gmail.com';
 
 
       if (status === 'order confirmed' ) {

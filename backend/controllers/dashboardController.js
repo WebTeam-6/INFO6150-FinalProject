@@ -98,6 +98,20 @@ async getTotalAverageRatings(req, res){
       }
 },
 
+async getTotalProducts(req, res){
+  try {
+      const allProducts = await Product.find({});
+      console.log("totalProducts ", allProducts);
+      const totalProducts = allProducts.data.length;
+      
+      return res.json({totalProducts});
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error fetching average ratings');
+    }
+},
+
+
 }
 
 module.exports = DashboardController;

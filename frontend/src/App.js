@@ -20,6 +20,7 @@ import UpdateOrders from "./pages/UpdateOrders";
 import OrderHistory from "./pages/OrderHistory";
 import RegistrationPage from "./pages/RegistrationPage";
 import PrivateRoutes from "./components/PrivateRoute";
+import ProtectedRoutes from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -37,11 +38,13 @@ function App() {
           <Route path="/orderHistory" element={<OrderHistory />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/wishlist" element={<WishListPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+        </Route>
+        <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<DashBoardPage />} />
           <Route path="/addProduct" element={<AddProductPage />} />
-          <Route path="/wishlist" element={<WishListPage />} />
           <Route path="/orderStatus" element={<UpdateOrders />} />
-          <Route path="/register" element={<RegistrationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

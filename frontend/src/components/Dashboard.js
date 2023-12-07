@@ -16,6 +16,7 @@ function DashBoard() {
   const [totalOrders,setTotalOrders] = useState(null);
   const [totalCustomers,setTotalCustomers] = useState(null);
   const [avgRating,setAvgRating] = useState(null);
+  const [totalProducts,setTotalProducts] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,14 +25,17 @@ function DashBoard() {
         const barResponse = await axios.get('http://localhost:8000/admin/dashboard/getOrdersByDay');
         const orders= await axios.get("http://localhost:8000/admin/dashboard/getTotalOrders");
         const customers = await axios.get("http://localhost:8000/admin/dashboard/getTotalNoOfCustomers");
-        const ratings = await axios.get("http://localhost:8000/admin/dashboard/getTotalAverageRatings")
+        const ratings = await axios.get("http://localhost:8000/admin/dashboard/getTotalAverageRatings");
+       // const products = await axios.get("http://localhost:8000/admin/dashboard/getTotalProducts");
         const apiResponseData = response.data.result;
         const barApiResponseData = barResponse.data.weeklyOrders[0];
         setPieData(apiResponseData);
         setTotalCustomers(customers.data?.totalUsers);
         setTotalOrders(orders.data?.totalOrders);
         setApiBarData(barApiResponseData);
-        setAvgRating(ratings.data?.averageRating)
+        setAvgRating(ratings.data?.averageRating);
+       // setTotalProducts(products.data?.totalProducts);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -107,8 +111,8 @@ function DashBoard() {
     </div>
     <div className="stat-card" id="three">
       <div className="stat-left">
-        <h4>Customers</h4>
-        <p>10</p>
+        <h4>Products</h4>
+        <p>{totalProducts}</p>
       </div>
       <div className="stat-right">
       <PeopleIcon/>

@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import PageNotFound from '../pages/PageNotFound';
 
-const PrivateRoutes = () => {
+const ProtectedRoutes = () => {
     const token = localStorage.getItem('token');
     let auth = false;
 
@@ -11,18 +11,19 @@ const PrivateRoutes = () => {
 
     if (token) {
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
         const currentTime = Math.floor(Date.now() / 1000);
         console.log(decodedToken.exp)
         if (decodedToken.exp < currentTime) {
           auth = false;
         }
         else{
-          if(decodedToken.isAdmin == false){
-            auth = true;
-          }
-          else{
-            auth = false;
-          }
+            if(decodedToken.isAdmin == true){
+                auth = true;
+            }
+            else{
+                auth = false;
+            }
         }
     }
     else{
@@ -34,4 +35,4 @@ const PrivateRoutes = () => {
     return auth ? <Outlet /> : <PageNotFound/>;
 }
 
-export default PrivateRoutes;
+export default ProtectedRoutes;

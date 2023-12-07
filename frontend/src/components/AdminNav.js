@@ -19,77 +19,79 @@ const drawerWidth = 240;
 export default function AdminNav() {
   const navigate = useNavigate();
 
-  function handleDashboardNavigation(){
+  function handleDashboardNavigation() {
     navigate(`/dashboard`);
   }
 
-  function handleAddOrderNavigation(){
+  function handleAddOrderNavigation() {
     navigate(`/addProduct`);
   }
 
-  function handleUpdateStatusNavigation(){
+  function handleUpdateStatusNavigation() {
     navigate(`/orderStatus`);
   }
 
-  // function handleSignout(){
-
-  // }
-
+  function handleSignout() {
+    localStorage.removeItem('token');
+    navigate(`/login`);
+  }
 
   return (
-<>
-  
-<Drawer
+    <>
+      <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            backgroundColor: '#272c34', 
           },
         }}
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
+        <Toolbar>
+          <Box sx={{ flexGrow: 1, textAlign: 'center', color: '#fff' }}>
+            <h2 style={{marginTop: '10px'}}> Admin </h2>
+          </Box>
+        </Toolbar>
         <Divider />
         <List>
-            <ListItem>
-                <ListItemButton>
-                <ListItemIcon>
-                    <DashboardIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" onClick={handleDashboardNavigation}/>
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton>
-                <ListItemIcon>
-                    <Inventory2Icon/>
-                </ListItemIcon>
-                <ListItemText primary="Add Order" onClick={handleAddOrderNavigation}/>
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton>
-                <ListItemIcon>
-                    <PeopleAltIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Update Order Status" onClick={handleUpdateStatusNavigation}/>
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton>
-                <ListItemIcon>
-                    <LogoutIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Sign Out"/>
-                </ListItemButton>
-            </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon sx={{ color: '#fff' }}>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" onClick={handleDashboardNavigation} sx={{ color: '#fff' }}/>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon sx={{ color: '#fff' }}>
+                <Inventory2Icon />
+              </ListItemIcon>
+              <ListItemText primary="Add Order" onClick={handleAddOrderNavigation} sx={{ color: '#fff' }}/>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon sx={{ color: '#fff' }}>
+                <PeopleAltIcon />
+              </ListItemIcon>
+              <ListItemText primary="Update Order Status" onClick={handleUpdateStatusNavigation} sx={{ color: '#fff' }} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon sx={{ color: '#fff' }}>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sign Out" onClick={handleSignout} sx={{ color: '#fff' }}/>
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
-</>
-
+    </>
   );
 }
-
