@@ -32,7 +32,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  var { email, fullName, password ,  phoneNumber, dateOfBirth, gender} = req.body;
+  var { email, firstName ,lastName , password ,  phoneNumber, gender} = req.body;
 
   password = bcrypt.hashSync(req.body.password, 10);
   const userExists = await User.findOne({ email });
@@ -44,12 +44,11 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = await User.create({
     email,
-    fullName,
+    firstName,
+    lastName,
     password,
     phoneNumber,
-    dateOfBirth,
     gender
-
   });
 
   if (user) {
