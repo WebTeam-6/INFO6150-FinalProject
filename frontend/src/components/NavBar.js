@@ -1,10 +1,7 @@
-import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartCheckout from "@mui/icons-material/ShoppingCartCheckout";
+import { Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import * as React from "react";
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import ManImage from '../assets/man.png';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';import logo from "../images/shilpkalaLogo.png";
@@ -74,7 +71,7 @@ function NavBar({cartSize}) {
       }
       
       const handleOrders = () =>{
-        navigate('/orders')
+        navigate('/orderHistory')
       }
 
       const handleAccount = ()=>{
@@ -93,19 +90,10 @@ function NavBar({cartSize}) {
   return (
     <>
   
-        <Toolbar className="tool-bar" >
+        <Toolbar className="tool-bar" style={{boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)"}} >
         <Typography component="div" className="logo">
           <img src={logo} alt="Shilpkala" style={{ height: '80px', marginRight: '0px' }} />
         </Typography>
-        <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { md: "flex" ,sm:"block"} }}>
                           <Button onClick={goList} sx={{color: '#754e85', fontWeight: 'bold'}}>

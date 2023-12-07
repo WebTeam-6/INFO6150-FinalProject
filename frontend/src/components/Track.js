@@ -144,11 +144,25 @@ ColorlibStepIcon.propTypes = {
 
 const steps = ['order placed', 'order confirmed', 'out for delivery','delivered'];
 
-export default function Track() {
+export default function Track({getOrderStatus}) {
+
+  const statusOrder = getOrderStatus.toLowerCase();
+  console.log("statusOrder ", statusOrder);
+
+  const findStatusIndex = (status) => {
+    return steps.findIndex(step => step === status);
+  };
+
+  const statusIndex = findStatusIndex(statusOrder);
+
+  console.log("Status Index:", statusIndex);
+
+
+
   return (
     <>
         <Stack sx={{ width: '100%',marginTop:'200px' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+      <Stepper alternativeLabel activeStep={statusIndex} connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
