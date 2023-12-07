@@ -6,6 +6,10 @@ import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import NavBar from '../components/NavBar';
+// import Footer from '../components/Footer';
+import loginImage from '../images/login.png';
+
 
 
 const LoginScreen = () => {
@@ -58,7 +62,16 @@ const LoginScreen = () => {
 
   return (
     <>
+        <NavBar />
+        {/* <div className="col-md-5">
+            <img src={loginImage} alt="SignUp" className="img-fluid" style={{ height: '350px' }} />
+        </div> */}
         <Container>
+        <Row>
+          <Col md={5} className="mb-4">
+            <img src={loginImage} alt="SignUp" className="img-fluid" style={{ height: '350px' }} />
+          </Col>
+          <Col md={7}>
       <FormContainer>
         <h1>Sign In</h1>
         {error && <Message variant="danger">{error}</Message>}
@@ -98,6 +111,8 @@ const LoginScreen = () => {
           </Col>
         </Row>
       </FormContainer>
+      </Col>
+      </Row>
     </Container>
     <Footer/>
     </>
