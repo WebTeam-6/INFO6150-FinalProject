@@ -18,6 +18,7 @@ import WishListPage from './pages/wishListPage';
 import DashBoardPage from './pages/DashBoardPage';
 import UpdateOrders from './pages/UpdateOrders';
 import OrderHistory from './pages/OrderHistory';
+import RegistrationPage from './pages/RegistrationPage';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     <Route path="/cancel" element={<Cancel />} /> 
     <Route path='/' element={<Home/>}/>
     <Route path="/login" element={<LoginScreen/>} />
-    <Route path="/register" element={<RegisterScreen/>} />
+    <Route path="/register" element={<RegistrationPage/>} />
     <Route path="/orderHistory" element={<OrderHistory/>} />
     <Route path="/cart" element={<CartPage/>} />
     <Route path="/checkout" element={<Checkout/>} />
@@ -40,6 +41,7 @@ function App() {
     <Route path="/addProduct" element={<AddProductPage/>} />
     <Route path="/wishlist" element={<WishListPage/>} />
     <Route path="/orderStatus" element={<UpdateOrders/>} />
+    <Route path='/register' element={<RegistrationPage/>}/>
     </Routes>
   </BrowserRouter>
   );
