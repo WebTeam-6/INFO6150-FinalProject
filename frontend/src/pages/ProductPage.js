@@ -10,6 +10,7 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Footer from "../components/Footer";
+import '../styles/productPage.css';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

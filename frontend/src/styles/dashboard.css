@@ -1,0 +1,35 @@
+/* Regular styles for larger screens */
+.stats {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .stat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  #one, #two, #three {
+    width: 100%;
+  }
+  
+  /* Media query for tablet and mobile screens */
+  @media only screen and (max-width: 768px) {
+    .stats {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .stat-card {
+      width: 80%;
+    }
+
+    
+  }
+  

@@ -58,3 +58,33 @@
     border: none;
     margin-right: 10px;
 }
+
+/* External CSS or within a style tag in your component */
+
+/* Default styles for larger screens */
+.mainSection{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  
+  /* Media query for iPhone-sized screens */
+  @media only screen and (max-width: 600px) {
+    .mainSection {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 30px;
+      }
+  
+      #prodImage{
+        /* flex: 1; */
+        /* max-width: 1000px; */
+        flex-grow: 1;
+        height: 300%;
+        width: 100%;
+        float: left;
+        margin: 10px;
+        margin-top:80px
+    }
+  }
+  

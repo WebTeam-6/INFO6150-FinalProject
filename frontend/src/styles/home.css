@@ -210,3 +210,39 @@ h1{
   #footer{
     margin-top: 90px;
 }
+
+/* Add this media query for screens with a maximum width of 600 pixels (adjust as needed) */
+@media (max-width: 600px) {
+  .home-divide {
+    display: flex;
+    flex-direction: column-reverse; /* Reverse the order of flex items for smaller screens */
+  }
+
+  .home-left,
+  .home-right {
+    width: 100%; /* Make both sections take up the full width on smaller screens */
+  }
+
+  .home-right img {
+    width: 100%; /* Make the image take up the full width of its container */
+  }
+}
+
+@media (max-width: 600px) {
+  .home-divide {
+    display: flex;
+    flex-direction: column-reverse; /* Reverse the order of flex items for smaller screens */
+  }
+
+  .home-desc {
+    margin-right: 20px; /* Add margin to the bottom of home-desc paragraphs on smaller screens */
+  }
+
+  .home-left{
+    margin-right: 30px; /* Add margin to the bottom of home-desc paragraphs on smaller screens */
+  }
+
+  .home-left h1{
+    margin-right: 20px;
+  }
+}

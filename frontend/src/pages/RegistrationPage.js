@@ -5,6 +5,7 @@ import axios from "axios";
 import { AppBar } from "@mui/material";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import '../styles/register.css';
 
 const RegistrationForm = () => {
     const navigate = useNavigate();

@@ -21,12 +21,12 @@ const FAQData = [
       answer: 'Yes, the products on शिल्पकला are typically handmade by artisans or crafters. Many platforms have strict guidelines to ensure that items are genuinely crafted by hand or in small, independent workshops.',
     },
     {
-      question: 'Can I request custom or personalized items here?',
-      answer: 'Many artisans on this site offer custom or personalized orders. You can usually contact the artisan directly to discuss your specific requirements.',
+      question: 'Why Choose Us?',
+      answer: 'We offer a wide variety of different artifacts offered by a range of sellers. Your one click can keep the artisan motivated because their art is valued.',
     },
     {
-      question: 'How do I support local artisans and small businesses on handcraft sites?',
-      answer: 'You can filter your search to find products from local artisans in your area or those that offer fair trade or ethically sourced items. Supporting small, independent artisans helps sustain traditional crafts and local economies.',
+      question: 'Our Goal',
+      answer: ' Access to new markets will be increased by creating a systematic strategy that fosters the intrinsic worth of craft skills and creates opportunities for product design and manufacturing',
     },
   ];
 

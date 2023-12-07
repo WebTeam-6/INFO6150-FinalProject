@@ -1,3 +1,29 @@
 #footer{
     margin-top: 150px;
 }
+
+/* Add this media query for screens with a maximum width of 600 pixels (iPhone screen size) */
+@media (max-width: 600px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .col-md-5 {
+      width: 100%;
+    }
+  
+    .col-md-7 {
+      width: 80%;
+    }
+    .col-12 {
+        margin-left: 50px;;
+    }
+    .text-center {
+        text-align: center;
+        margin-left: 20px;
+    }
+
+    }
+  

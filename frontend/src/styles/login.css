@@ -1,0 +1,17 @@
+/* Add this media query for screens with a maximum width of 600 pixels (iPhone screen size) */
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-md-6 {
+    width: 100%;
+    margin-left: 50px; /* Add some spacing between the image and the form on smaller screens */
+  }
+
+  .col-md-12 {
+    width: 100%;
+  }
+}

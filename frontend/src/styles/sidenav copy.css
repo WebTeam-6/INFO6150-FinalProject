@@ -1,0 +1,16 @@
+.css-h4y409-MuiList-root {
+  margin-left: 20px;
+}
+
+/* Common styles for both mobile and desktop */
+.MuiDrawer-paper {
+  box-sizing: border-box;
+  padding-left: 20px;
+}
+
+/* Media query for mobile screens (up to 600px) */
+@media only screen and (max-width: 600px) {
+  .MuiDrawer-paper {
+    padding-left: 0;
+  }
+}

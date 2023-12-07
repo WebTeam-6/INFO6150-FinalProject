@@ -3,7 +3,9 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import AdminNav from '../components/AdminNav';
 import { Box, CssBaseline } from "@mui/material";
+import '../styles/addProduct.css';
 const drawerWidth = 240;
+
 
 function AddProductPage(){
     const [product, setProduct] = useState({

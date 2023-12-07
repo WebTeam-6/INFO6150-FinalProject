@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import '../styles/login.css';
 
 const LoginForm = () => {
 
@@ -40,9 +41,7 @@ const LoginForm = () => {
 
         <div className="col-md-6">
           <h1 className="text-start">Login</h1>
-          <p className="text-start">
-            Don't have an account? <a onClick={redirect} style={{color: 'blue', textDecoration: 'underline'}}>Register</a>
-          </p>
+          
           <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="col-md-12" style={{ width: "70%" }}>
               <label htmlFor="email" className="form-label">
@@ -73,6 +72,9 @@ const LoginForm = () => {
                 Submit
               </button>
             </div>
+            <p className="text-start">
+            Don't have an account? <a onClick={redirect} style={{color: 'blue', textDecoration: 'underline'}}>Register</a>
+          </p>
           </form>
         </div>
       </div>
