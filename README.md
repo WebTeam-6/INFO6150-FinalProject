@@ -1,4 +1,4 @@
-##SHILPKALA: Because They Create It With Love
+## SHILPKALA: Because They Create It With Love
 
 ![home1](./Resources/home1.png?raw=true "home1")
 ![dashboard](./Resources/dashboard.png?raw=true "dashboard")
@@ -6,42 +6,49 @@
 
 
 > Overview 
+
 Shilpkala is an Indian handicraft and DIY small business website. Shilpkala offers a carefully curated collection of handcrafted treasures. The range includes diverse items such as textiles, jewelry, woodwork, and pottery, showcasing the diversity of Indian craftsmanship. Here, you'll embark on a colorful journey through the heart of India's artisanal heritage, where age-old techniques meet contemporary creativity. Our platform showcases a curated collection of handcrafted treasures, ranging from exquisite textiles and intricate jewelry to finely carved woodwork and eye-catching pottery. What sets us apart is our commitment to empowering small businesses and individual artisans, providing them a digital stage to showcase their creations to the world.
 
 > Roles 
-1. Admin
-2. Customers
+
+- Admin
+- Customers
 
 
 > Pages
+
     - Customer:
-        1. Home
-        2. Login
-        3. Registration
-        4. Shop (View All Products)
-        5. Wishlist
-        6. Cart
-        7. Order History
-        8. Order Tracking
-        9. Product Listing Page
-        9. Product Details
-        10. WishList
+
+        - Home
+        - Login
+        - Registration
+        - Shop (View All Products)
+        - Wishlist
+        - Cart
+        - Order History
+        - Order Tracking
+        - Product Listing Page
+        - Product Details
+        - WishList
 
 
-    -Admin:
-        1. Dashboard
-        2. Add Product
-        3. Update Order Status
+    - Admin:
+
+        - Dashboard
+        - Add Product
+        - Update Order Status
 
 
 > Technical Stack
-    1. Mangoose
-    2. Express
-    3. React
-    4. Node
+
+    - Mangoose
+    - Express
+    - React
+    - Node
 
 
 > Libraries:
+
 - axios: for performing rest endpoint calls
 - react-bootstrap: frontend UI library for styling
 - mongoose: used as a middleware to connect to mongoDB
@@ -50,6 +57,7 @@ Shilpkala is an Indian handicraft and DIY small business website. Shilpkala offe
 - @mu
 
 > Key Features
+
 - Admin dashboard
 - Node mailer
 - Stripe payment gateway
@@ -58,7 +66,9 @@ Shilpkala is an Indian handicraft and DIY small business website. Shilpkala offe
 - Tracking Orders
 
 > CRUD
+
 - Customer 
+
     - Create User, 
     - Add product to cart, 
     - Add product to Wishlist
@@ -66,10 +76,13 @@ Shilpkala is an Indian handicraft and DIY small business website. Shilpkala offe
     - Delete product from wishlist
 
 - Admin
+
     - Add new Product
     - Update order status
 
+
 > Other Information about Project
+
 - End to end data consistency was ensured using validation for each field
 - Authentication
 - Completely responsive
@@ -77,6 +90,7 @@ Shilpkala is an Indian handicraft and DIY small business website. Shilpkala offe
 - Password encryption using bcrypt
 - A Model-View-Controller architecture is followed throughout the project
 - The entire application is deployed at AWS EC2 Instances - http://ec2-52-204-199-112.compute-1.amazonaws.com/
+
 
 > Responsiveness:
 ![responsive1](./Resources/responsive%201.png?raw=true "responsive1")
